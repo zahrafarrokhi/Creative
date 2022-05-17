@@ -76,3 +76,74 @@ INSTALLED_APPS = [
     [...]
 ]
 ```
+
+# install postgresql
+[postgresql](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
+
+```commandline
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql.service
+sudo -i -u postgres # Login as postgres user
+psql # Login to postgres with postgres user
+```
+```commandline
+postgres# \q # to exit postgres
+```
+Because we ran `sudo -i -u postgres ` we are still logged in as postgres. To logout simply run `exit` in terminal
+
+## Setup pgAdmin
+[pgAdmin](https://www.pgadmin.org/download/pgadmin-4-apt/)
+```commandline
+#
+# Setup the repository
+#
+
+# Install the public key for the repository (if not done previously):
+sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+
+# Create the repository configuration file:
+sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+
+#
+# Install pgAdmin
+#
+
+# Install for both desktop and web modes:
+sudo apt install pgadmin4
+```
+
+### Registering servers to pgAdmin
+
+* Right click on servers -> register -> server
+* Fill out the following fields
+    * name: any name you like
+    * hostname
+    * port
+    * username: default postgres user is `postgres`
+    * password: default postgres password is `postgres`
+![General tab](./screenshots/pgadmin-newserver-general.png)
+![Connection tab](./screenshots/pgadmin-newserver-connection.png)
+
+
+# Connecting django with postgres
+## Installing psycopg2
+
+## Creating a new database
+* In your desired server, right click on databases -> create -> database
+![New database](./screenshots/pgadmin-newdatabase.png)
+![New database](./screenshots/pgadmin-newdatabase-main.png)
+* Add your database to django 
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
+    }
+}
+
+```
