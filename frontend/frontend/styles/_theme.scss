@@ -1,0 +1,25 @@
+
+:root,
+body,
+input,
+button,
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div {
+  font-family: "IRANSansMobile" !important;
+  font-size: 14px;
+  line-height: 25px;
+  font-weight: 400 !important;
+  @include media-breakpoint-up(md) {
+    font-family: "IRANSansMobile" !important;
+    font-size: 16px;
+    line-height: 25px;
+  }
+}
