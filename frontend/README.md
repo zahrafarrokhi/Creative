@@ -99,3 +99,20 @@ i18n: {
 }
 ```
 * if we run into problems we can use webpack SVGR plugin
+
+
+# Layout
+## fix layout
+`pages/_app.js`
+
+[layout](https://nextjs.org/docs/basic-features/layouts#per-page-layouts)
+
+```jsx
+export default function MyApp({ Component, pageProps }) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page)
+
+  return getLayout(<Component {...pageProps} />)
+}
+
+```
