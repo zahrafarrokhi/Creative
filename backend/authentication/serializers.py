@@ -173,7 +173,7 @@ class CallbackTokenSerializer(serializers.Serializer):
                 token.is_active = False
                 token.save()
 
-                attrs['user'] = UserSerializer(user).data
+                attrs['user'] = user
 
                 # Create JWT?!? (user, *_*created_at*_*, updated_at, exp_date, session) ?!?jedi?!?
                 access_token = AccessToken.for_user(user)
@@ -219,7 +219,7 @@ class TokenRefreshSerializer(serializers.Serializer):
             if ref.exp_date < timezone.now():
                 msg = _("Refresh token has expired")
                 raise serializers.ValidationError(msg)
-            user = User.objects.get(pk=ref.user.id)
+            user = ref.user
             tok = AccessToken.for_user(user)  # Create JWT
             data['access_tok'] = str(tok)
             data['access_tok_exp'] = tok.get_exp()
