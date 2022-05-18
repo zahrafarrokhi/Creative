@@ -147,3 +147,11 @@ DATABASES = {
 }
 
 ```
+
+# Django custom superuser commands
+
+```
+python manage.py createsuperuser2 --phone-number=09****** --password=1234
+
+python manage.py createsuperuser2 --email=example@test.com --password=1234
+```
