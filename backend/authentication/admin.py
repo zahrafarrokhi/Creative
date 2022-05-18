@@ -4,7 +4,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User, OTP, Token, VerificationCode
+from .models import User, OTP, Token
 from django.utils.translation import gettext_lazy as _
 
 
