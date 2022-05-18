@@ -77,6 +77,16 @@ INSTALLED_APPS = [
 ]
 ```
 
+## Installing requests
+```commandline
+pip install requests
+```
+
+## Installing PyJWT
+```commandline
+pip install PyJWT
+```
+
 # install postgresql
 [postgresql](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 
@@ -128,6 +138,10 @@ sudo apt install pgadmin4
 
 # Connecting django with postgres
 ## Installing psycopg2
+
+```
+pip install psycopg2
+```
 
 ## Creating a new database
 * In your desired server, right click on databases -> create -> database
