@@ -119,14 +119,14 @@ class Token(models.Model):
 
 
 # verification code for the time that user decides to add phone/email.
-class VerificationCode(models.Model):
-    EMAIL = 'email'
-    SMS = 'sms'
-    OTP_CHOICES = ((EMAIL, 'E-Mail'), (SMS, 'SMS'),)
-    type = models.CharField(max_length=10, choices=OTP_CHOICES, default=SMS)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    exp_date = models.DateTimeField(blank=False, null=False)
-    value = models.CharField(default=generate_uuid, max_length=128)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+# class VerificationCode(models.Model):
+#     EMAIL = 'email'
+#     SMS = 'sms'
+#     OTP_CHOICES = ((EMAIL, 'E-Mail'), (SMS, 'SMS'),)
+#     type = models.CharField(max_length=10, choices=OTP_CHOICES, default=SMS)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     exp_date = models.DateTimeField(blank=False, null=False)
+#     value = models.CharField(default=generate_uuid, max_length=128)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     is_active = models.BooleanField(default=True)
