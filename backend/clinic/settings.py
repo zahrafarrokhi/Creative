@@ -85,12 +85,14 @@ WSGI_APPLICATION = 'clinic.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': env('DATABASE_NAME'),
+        # 'USER': env('DATABASE_USER'),
+        # 'PASSWORD': env('DATABASE_PASSWORD'),
+        # 'HOST': env('DATABASE_HOST'),
+        # 'PORT': env('DATABASE_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -140,3 +142,21 @@ AUTHENTICATION_SETTINGS = {
     'OTP_EXPIRE_TIME': 2 * 60,
     'OTP_LENGTH': 4,
 }
+
+
+SMS_PANEL_SETTINGS = {
+    #  'SMS_PANEL_USERNAME': env('SMS_PANEL_USERNAME', None),
+    #  'SMS_PANEL_PASSWORD': env('SMS_PANEL_PASSWORD', None),
+    'SMS_PANEL_TOKEN': env('SMS_PANEL_TOKEN', None),
+    'SMS_PANEL_SENDER_NUMBER': env('SMS_PANEL_SENDER_NUMBER', None),
+}
+SMS_MESSAGE_TEXT_ID = env('SMS_MESSAGE_TEXT_ID')
+SMS_NOTIFICATION_TEXT_ID = env('SMS_NOTIFICATION_TEXT_ID')
+
+
+AUTH_USER_MODEL = 'authentication.User'
+
+AUTHENTICATION_BACKENDS = [
+    'authentication.backends.CustomUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
