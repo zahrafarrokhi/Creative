@@ -1,4 +1,3 @@
-
 :root,
 body,
 input,
@@ -21,5 +20,184 @@ div {
     font-family: "IRANSansMobile" !important;
     font-size: 16px;
     line-height: 25px;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+
+
+.input-group {
+  direction: rtl !important;
+}
+
+.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .input-group-prepend > .btn {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+  border-right-width: 0px !important;
+  border-left-width: 1px !important;
+}
+
+.input-group:first-child > .form-control {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+.input-group:last-child > .btn {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  width: auto !important;
+}
+
+
+.btn-group-btn:last-child > .btn {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+  border-right-width: 0px !important;
+  border-left-width: 1px !important;
+}
+
+.btn-group .form-control:first-child {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.btn {
+  color: $text-white;
+
+  border-radius: 8px;
+  @include media-breakpoint-up(md) {
+    border-radius: 10px;
+  }
+
+  height: 3em;
+  @include media-breakpoint-up(md) {
+    height: 3em;
+  }
+
+  width: 240px !important;
+  @include media-breakpoint-up(md) {
+    width: 400px !important;
+  }
+}
+
+.btnsm {
+  height: 2.8em;
+  @include media-breakpoint-up(md) {
+    width: 366px !important;
+  }
+}
+
+.form-control {
+  width: 240px !important;
+  height: 3em !important;
+  @include media-breakpoint-up(md) {
+    height: 3em !important;
+    width: 250px !important;
+  }
+
+  border-radius: 8px;
+  @include media-breakpoint-up(md) {
+    border-radius: 10px;
+  }
+}
+
+.form-select {
+  width: 240px !important;
+  height: 3em !important;
+  @include media-breakpoint-up(md) {
+    height: 3em !important;
+    width: 250px !important;
+  }
+
+  border-radius: 8px;
+  @include media-breakpoint-up(md) {
+    border-radius: 10px;
+  }
+}
+.btn {
+  font-size: 1.15em;
+  @include media-breakpoint-up(md) {
+    font-size: 1.25em;
+  }
+}
+
+.btn:hover {
+  color: $text-white;
+}
+
+.btn:focus,
+.btn:active {
+  box-shadow: 0 0 0 0 !important;
+}
+
+.btn-primary {
+  font-weight: 400;
+  @include media-breakpoint-up(md) {
+    font-size: 1.25em;
+  }
+}
+
+.btn-outline-primary {
+  color: $primary;
+  font-weight: 400;
+}
+
+.btn-outline-danger {
+  color: $danger;
+  font-weight: 400;
+  @include media-breakpoint-up(md) {
+    font-size: 1.25em;
+  }
+}
+
+.btn-secondary {
+  color: $text-secondary;
+}
+.btn-secondary:hover {
+  color: $text-secondary;
+}
+
+.btn-outline-secondary {
+  color: $secondary;
+}
+
+.btn-outline-secondary:hover {
+  color: $text-secondary;
+}
+
+.lowopacity {
+  opacity: 0.5;
+}
+
+select {
+  background-position: 0.5em !important;
+}
+label {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  font-size: 1rem;
+  color: $black;
+  &[required] {
+    &::after {
+      content: "*";
+      color: $danger;
+    }
   }
 }

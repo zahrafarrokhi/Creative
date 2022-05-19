@@ -1,0 +1,80 @@
+ 
+@import 'colors';
+@import 'bootstrap-imports';
+
+.bg{
+  // background-color: blue;
+  position: relative;
+}
+
+.mdl{
+  // background-color: red;
+  position: absolute;
+  top: 2%;
+  left: 0;
+ 
+}
+
+// .mdl2{
+//   background-color: green;
+//   width: 100%;
+// }
+
+.btngrp {
+  width: 240px !important;
+  height: 40px !important;
+  padding: 5px;
+  background-color: $text-secondary;
+
+  @include media-breakpoint-up(md) {
+    padding: 0px;
+    height: 50px !important;
+    width: 327px !important;
+    border: 1px solid $secondary;
+    background-color: $text-secondary;
+    // background-color: red;
+  }
+  border-radius: 10px;
+  overflow: hidden;
+  &:first-child {
+    right: 0;
+  }
+  &:last-child {
+    left: 0;
+  }
+  
+}
+
+.btngrpbtn {
+ 
+  height: 30px !important;
+  width: 110px !important;
+  text-align: center;
+  background-color: $gray-icon!important;
+  // background-color: yellow!important;
+  color: $text-secondary-dark;
+  padding: 2px 0 2px;
+  margin: 0px;
+  margin-left: 1px;
+  @include media-breakpoint-up(md) {
+    height: 50px !important;
+    width: 162px !important;
+    padding: 11px 0 12px;
+    background-color:$gray-icon!important;
+    color: $white;
+    margin-left: 1px;
+  }
+  @include media-breakpoint-down(xsm) {
+    width: 85px !important;
+  }
+  border-radius: 10px;
+  
+  
+   
+}
+
+.modalcnt{
+
+}
+
+
