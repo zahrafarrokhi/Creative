@@ -1,6 +1,6 @@
 
 ## Login
-![Login](../../screenshots/Login.png)
+![Login](../../../screenshots/Login.png)
 
 ## Confirm
-![Confirm](../../screenshots/Confirm.png)
+![Confirm](../../../screenshots/Confirm.png)
