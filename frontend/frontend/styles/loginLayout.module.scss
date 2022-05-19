@@ -1,0 +1,34 @@
+ 
+@import 'colors';
+@import 'bootstrap-imports';
+
+
+.maincnt{
+  background-color: $secondary2;
+  // me 
+  // width:100%;
+  // height:100%;
+  // 
+  height: auto;
+  min-height: 100vh;
+  overflow: auto;
+}
+
+.cnt{
+  background-color: $white;
+  // 
+  max-width: 80%;
+  height: auto;
+  min-height: 33em;
+  // 
+  box-shadow: 0px 4px 20px 10px rgba(0, 0, 0, 0.16);
+  border-radius: 1em;
+  border: 1px solid $gray-200;
+
+  // center .cnt
+  //1- margin:auto 20em;
+  //2-style with  postion(absolute)  or 
+  //3- with justify-content-center align-items-center to .maincnt and w:100% to cnt
+
+  //4-or  in copmonents justify-content-center align-items-center to first column and w-100 to next column =>done
+}
