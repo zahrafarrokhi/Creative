@@ -116,3 +116,10 @@ export default function MyApp({ Component, pageProps }) {
 }
 
 ```
+
+## Run
+
+You should be in the right folder before you start react. Your main folder which includes public,src, package.json 
+```
+npm run dev
+```
