@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/loginLayout.module.scss';
+import styles from '../styles/LoginLayout.module.scss';
 import { IoChevronBackCircle } from 'react-icons/io5';
 // import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import {useRouter} from 'next/dist/client/router';
