@@ -1,6 +1,6 @@
 import React from 'react';
+import styles from '../../styles/Login.module.scss';
 import LoginLayout from '../../components/LoginLayout';
-import styles from '../../styles/loginLayout.module.scss';
 
 const Login = (props) =>
 
@@ -12,9 +12,9 @@ const Login = (props) =>
 
 
 
-// layout
+// layout without return
 Login.getLayout = (page) => (
-  <LoginLayout backlink ={false} >{page}</LoginLayout>
+  <LoginLayout backlink = {false} >{page}</LoginLayout>
   // or
   // <LoginLayout  >{page}</LoginLayout>
 );
