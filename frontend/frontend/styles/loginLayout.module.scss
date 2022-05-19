@@ -31,4 +31,20 @@
   //3- with justify-content-center align-items-center to .maincnt and w:100% to cnt
 
   //4-or  in copmonents justify-content-center align-items-center to first column and w-100 to next column =>done
+  position: relative;
+}
+
+.back_link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5em;
+  color: $gray-icon;
+    @include media-breakpoint-up(md) {
+    top: 45px;
+    left: 40px;
+    font-size: 1.7em;
+  }
+
+  
 }
