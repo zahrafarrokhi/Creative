@@ -1,17 +1,23 @@
 import React from 'react';
 import LoginLayout from '../../components/LoginLayout';
+import styles from '../../styles/loginLayout.module.scss';
 
-const login = () =>
+const Login = (props) =>
+
 {
   return(
     <h1>hellooooo</h1>
   )
 }
 
+
+
 // layout
-login.getLayout = (page) => (
-  <LoginLayout>{page}</LoginLayout>
+Login.getLayout = (page) => (
+  <LoginLayout backlink ={false} >{page}</LoginLayout>
+  // or
+  // <LoginLayout  >{page}</LoginLayout>
 );
 
-export default login;
+export default Login;
 
