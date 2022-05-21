@@ -63,3 +63,29 @@
 .selected {
   border: 1px solid $border-color;
 }
+.refreshcnt {
+  // width: 230px;
+  // @include media-breakpoint-up(md) {
+  //   width: 260px;
+  // }
+}
+
+.resendcode {
+  color: $primary;
+  &[disabled] {
+    color: unset;
+  }
+}
+.error {
+  color: $danger;
+  font-size: 0.9em;
+}
+
+.refresh {
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  & > * {
+    stroke: $gray-900;
+  }
+}

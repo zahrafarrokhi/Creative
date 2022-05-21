@@ -25,26 +25,27 @@ const Confirm = () => {
 
       <div className={`d-flex flex-column mt-3 align-items-center  w-100 `}>
         {/* 
-        In order to align label with inputs, we need a flex div with justify-content-start, that doesn't have w-100
+        In order to align label with inputs, we need a flex div with flex-column, that doesn't have w-100
          */}
-        <div className="d-flex flex-column align-self-center justify-content-start">
-        <div className={` ${styles.confirm_code}`}>کد تأیید</div>
+        <div className="d-flex flex-column ">
+          <div className={` ${styles.confirm_code}`}>کد تأیید</div>
 
-        <VerificationInput
-          length={CODE_LENGTH}
-          placeholder=""
-          validChars="0-9۰-۹"
-          // onChange={(e) => setCode(persianToEnglishDigits(e))}
-          removeDefaultStyles
-          autoFocus
-          dir="ltr"
-          classNames={{
-            container: `d-flex flex-row justify-content-center ${styles.codecontainer}`,
-            character: `rounded m-1 form-control ${styles.inpsingle}`,
-            characterInactive: `rounded m-1 form-control ${styles.inpsingle} ${styles.inactive}`,
-            characterSelected: `rounded m-1 form-control:focus form-control:active ${styles.inpsingle} ${styles.selected}`,
-          }}
-        /></div>
+          <VerificationInput
+            length={CODE_LENGTH}
+            placeholder=""
+            validChars="0-9۰-۹"
+            // onChange={(e) => setCode(persianToEnglishDigits(e))}
+            removeDefaultStyles
+            autoFocus
+            dir="ltr"
+            classNames={{
+              container: `d-flex flex-row justify-content-center ${styles.codecontainer}`,
+              character: `rounded m-1 form-control ${styles.inpsingle}`,
+              characterInactive: `rounded m-1 form-control ${styles.inpsingle} ${styles.inactive}`,
+              characterSelected: `rounded m-1 form-control:focus form-control:active ${styles.inpsingle} ${styles.selected}`,
+            }}
+          />
+        </div>
 
         {/* <Button
           variant="contained"
@@ -61,13 +62,33 @@ const Confirm = () => {
         >
           ادامه
         </Button> */}
+        <div className="d-flex flex-column">
         <button
           className={`btn btn-primary mt-5 ${styles.btn}`}
-          // onClick={submit}
-          // disabled={time === 0 || code.length !== 4}
+           // onClick={()=>{}}
+          // disabled={false}
         >
           ادامه
         </button>
+        <div
+        className={` m-3 d-flex  flex-row justify-content-between ${styles.refreshcnt}`}
+      >
+        <div
+          className={`d-flex  ${styles.resendcode}`}
+          // onClick={()=>{}}
+          disabled={false}
+        >
+          ارسال مجدد
+        </div>
+        <div className="d-flex align-items-center ">
+          <GrRefresh className={`${styles.refresh}`} />
+         
+          
+        </div>
+      
+    </div>
+        </div>
+        
       </div>
     </div>
   );
