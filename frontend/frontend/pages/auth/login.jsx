@@ -7,7 +7,41 @@ const Login = (props) => {
   // state
   const [state, setState] = useState("email");
   const [value, setValue] = useState();
- 
+  // error redux
+  const [error, setError] = useState(false);
+  // error validation 
+  const [errorStr, setErrorStr] = useState(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const validate = () => {
+    if (state === 'phonenumber') {
+      return /^09\d{9}$/g.test(value);
+    }
+    return /^[.-\w]+@[.-\w]+\.[.-\w]+$/g.test(value);
+  };
+
+  const submit = async () => {
+    setError(false);
+    if (validate()) {
+      // setError('');
+      try {
+        if (state === 'phonenumber') {
+          await dispatch(requestMobileOTP(value)).unwrap();
+        } else {
+          await dispatch(requestEmailOTP(value)).unwrap();
+        }
+        router.push('/auth/confirm');
+      } catch (e) {
+        setError(true);
+      }
+    } else {
+      setErrorStr('لطفا فیلد‌ها رادرست پر نمایید');
+    }
+  };
+  // useEffect(() => {
+  //   logout(dispatch);
+  // }, []);
   return (
     // column => justify-content-center = h,  align-items-center = w ,w=100
     <div
@@ -107,7 +141,7 @@ const Login = (props) => {
               type="submit"
               className={`btn btn-primary ${styles.btn}`}
               // onClick={() => ({})}
-              // onClick={submit}
+              onClick={submit}
             >
               بعدی
             </button>
