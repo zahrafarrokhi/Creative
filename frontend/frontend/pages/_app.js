@@ -1,3 +1,4 @@
+import { wrapper } from '../lib/store'
 import '../styles/globals.scss'
 
 function MyApp({ Component, pageProps }) {
@@ -6,4 +7,4 @@ function MyApp({ Component, pageProps }) {
   return getLayout(<Component {...pageProps} />)
 }
 
-export default MyApp
+export default wrapper(MyApp)
