@@ -1,0 +1,65 @@
+@import "colors";
+@import "bootstrap-imports";
+
+.cnt {
+  margin-top: 6em;
+}
+.titlephone {
+  color: $black;
+  font-weight: bold !important;
+  font-size: 0.8em;
+
+  text-align: center;
+}
+
+.phone_num {
+  color: $primary;
+  font-weight: 600 !important;
+}
+.confirm_code {
+  color: $black;
+  font-weight: 500 !important;
+  // width: 260px;
+  // @include media-breakpoint-down(md) {
+  //   width: 230px;
+
+  // }
+}
+.codecontainer {
+  // margin: 1.2em 0rem;
+  // background-color: red;
+  margin-top: 0em;
+  margin-bottom: 1.2em;
+  height: 45px;
+  width: 230px;
+  @include media-breakpoint-up(md) {
+    width: 260px;
+    height: 50px;
+  }
+}
+
+.inpsingle {
+  // background-color: aqua;
+  width: calc(230px / 4 - 1em) !important;
+
+  height: 45px !important;
+  border-radius: 12px !important;
+  margin: 0.2em !important;
+  &:first-child {
+    margin-left: 0em !important;
+  }
+  &:last-child {
+    margin-right: 0em !important;
+  }
+  line-height: 2em;
+  // desktop
+  @include media-breakpoint-up(md) {
+    margin: 0.5em !important;
+
+    width: calc(260px / 4 - 1em) !important;
+    height: 45px !important;
+  }
+}
+.selected {
+  border: 1px solid $border-color;
+}
