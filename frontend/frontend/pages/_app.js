@@ -7,4 +7,4 @@ function MyApp({ Component, pageProps }) {
   return getLayout(<Component {...pageProps} />)
 }
 
-export default wrapper(MyApp)
+export default wrapper.withRedux(MyApp)
