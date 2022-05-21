@@ -8,6 +8,7 @@ const Login = (props) =>
   return(
     // column => justify-content-center = h,  align-items-center = w ,w=100
    <div className={`d-flex flex-column  align-items-center w-100 justify-content-center ${styles.bg} `}>
+     {/* e.preventDefault dont do default action */}
       <form  className={`d-flex flex-column w-100 ${styles.mdl}`} onSubmit={(e) => e.preventDefault()}>
        
           <div
