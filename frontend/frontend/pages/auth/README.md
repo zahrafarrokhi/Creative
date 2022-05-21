@@ -13,3 +13,13 @@
 ```
 npm i react-verification-input
 ```
+## state login
+1. state: email or phone number
+```
+ const [state, setState] = useState("email");
+```
+
+2. value: string that user has input
+```
+ const [value, setValue] = useState();
+```

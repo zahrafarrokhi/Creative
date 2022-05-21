@@ -1,65 +1,74 @@
-import React from 'react';
-import styles from '../../styles/Login.module.scss';
-import LoginLayout from '../../components/LoginLayout';
+import React, { useState } from "react";
+import styles from "../../styles/Login.module.scss";
+import LoginLayout from "../../components/LoginLayout";
+import { useDispatch, useSelector } from 'react-redux';
 
-const Login = (props) =>
-
-{
-  return(
+const Login = (props) => {
+  // state
+  const [state, setState] = useState("email");
+  const [value, setValue] = useState();
+ 
+  return (
     // column => justify-content-center = h,  align-items-center = w ,w=100
-   <div className={`d-flex flex-column  align-items-center w-100 justify-content-center ${styles.bg} `}>
-     {/* e.preventDefault dont do default action */}
-      <form  className={`d-flex flex-column w-100 ${styles.mdl}`} onSubmit={(e) => e.preventDefault()}>
-       
+    <div
+      className={`d-flex flex-column  align-items-center w-100 justify-content-center ${styles.bg} `}
+    >
+      {/* e.preventDefault dont do default action */}
+      <form
+        className={`d-flex flex-column w-100 ${styles.mdl}`}
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <div
+          className={`d-flex align-items-center justify-content-center p-4 ${styles.mdl2}`}
+        >
           <div
-            className={`d-flex align-items-center justify-content-center p-4 ${styles.mdl2}`}
+            className={`btn-group d-flex ${styles.btngrp}`}
+            dir="rtl"
+            role="group"
+            aria-label="Status button group"
+            onChange={(e) => setState(e.target.value)}
           >
-            <div
-              className={`btn-group d-flex ${styles.btngrp}`}
-              dir="rtl"
-              role="group"
-              aria-label="Status button group"
-              onChange={() => ({})}
-            >
-              <div className="p-0 m-0 d-flex flex-grow-1 align-items-center justify-content-center">
-                <input
-                  dir="rtl"
-                  type="radio"
-                  className="btn-check"
-                  name="statusbutton"
-                  id="btnradiophonenumber"
-                  // checked={}
-                  onChange={() => ({})}
-                  // value={}
-                />
-                <label
-                   className={`${styles.btngrpbtn}  `}
-                  
-                  htmlFor="btnradiophonenumber"
-                >
-                  تلفن‌همراه
-                </label>
-              </div>
-              <div className="p-0 m-0 d-flex flex-grow-1 align-items-center justify-content-center">
-                <input
-                  dir="rtl"
-                  type="radio"
-                  className="btn-check"
-                  name="statusbutton"
-                  id="btnradioemail"
-                  // checked={}
-                  onChange={() => ({})}
-                  // value={}
-                />
-                <label
-                  className={`${styles.btngrpbtn}  `}
-                  htmlFor="btnradioemail"
-                >
-                  ایمیل
-                </label>
-              </div>
+            <div className="p-0 m-0 d-flex flex-grow-1 align-items-center justify-content-center">
+              <input
+                dir="rtl"
+                type="radio"
+                className="btn-check"
+                name="statusbutton"
+                id="btnradiophonenumber"
+                checked={state === "phonenumber"}
+                onChange={() => ({})}
+                value={"phonenumber"}
+              />
+              <label
+                className={`${styles.btngrpbtn} ${
+                  state === "phonenumber" ? styles["btngrpbtn-active"] : ""
+                } `}
+                htmlFor="btnradiophonenumber"
+              >
+                تلفن‌همراه
+              </label>
             </div>
-         
+            <div className="p-0 m-0 d-flex flex-grow-1 align-items-center justify-content-center">
+              <input
+                dir="rtl"
+                type="radio"
+                className="btn-check"
+                name="statusbutton"
+                id="btnradioemail"
+                checked={state === "email"}
+                onChange={() => ({})}
+                value={"email"}
+              />
+              <label
+                className={`${styles.btngrpbtn}  ${
+                  state === "email" ? styles["btngrpbtn-active"] : ""
+                }`}
+                htmlFor="btnradioemail"
+              >
+                ایمیل
+              </label>
+            </div>
+          </div>
         </div>
         <div className="row justify-content-around">
           <div
@@ -67,28 +76,29 @@ const Login = (props) =>
           >
             <div className="align-items-right">
               <label
-                className={`form-label ${styles['slow-transition']}`}
+                className={`form-label ${styles["slow-transition"]}`}
                 htmlFor="inputValue"
               >
-                {' '}
-               
+                {state === 'phonenumber'?'تلفن همراه':'ایمیل'}
               </label>
               <input
                 dir="ltr"
                 id="inputValue"
-                onChange={() => ({})}                
-                // inputMode={}
-                // placeholder={}   
-                // maxLength={}
-                // value={}
+                onChange={(e) => (setValue(e.target.value))}
+                inputMode={state === 'phonenumber' ? 'numeric' : 'email'}
+                placeholder={
+                  state === 'phonenumber'
+                    ? '09*********'
+                    : 'email@example.com'
+                }
+                maxLength={state === 'phonenumber'? 11 : undefined}
+                value={value}
                 className={`form-control ${styles.btnsm}`}
               />
             </div>
           </div>
         </div>
-        <div className="row">
-         {/* error */}
-        </div>
+        <div className="row">{/* error */}</div>
         <div className="row p-5 justify-content-around">
           <div
             className={`d-flex w-100 justify-content-center ${styles.modalcnt}`}
@@ -96,7 +106,8 @@ const Login = (props) =>
             <button
               type="submit"
               className={`btn btn-primary ${styles.btn}`}
-              onClick={()=>({})}
+              // onClick={() => ({})}
+              // onClick={submit}
             >
               بعدی
             </button>
@@ -104,19 +115,15 @@ const Login = (props) =>
         </div>
         <div className={styles.mdldummymargin} />
       </form>
-
-   </div>
-  )
-}
-
-
+    </div>
+  );
+};
 
 // layout without return
 Login.getLayout = (page) => (
-  <LoginLayout backlink = {false} >{page}</LoginLayout>
+  <LoginLayout backlink={false}>{page}</LoginLayout>
   // or
   // <LoginLayout  >{page}</LoginLayout>
 );
 
 export default Login;
-

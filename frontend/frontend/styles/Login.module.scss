@@ -1,18 +1,23 @@
- 
-@import 'colors';
-@import 'bootstrap-imports';
+@import "colors";
+@import "bootstrap-imports";
 
-.bg{
+.slow-transition {
+  -webkit-transition: all 0.3s 0.1s ease-in-out;
+  -moz-transition: all 0.3s 0.1s ease-in-out;
+  -o-transition: all 0.3s 0.1s ease-in-out;
+  transition: all 0.3s 0.1s ease-in-out;
+}
+
+.bg {
   // background-color: blue;
   position: relative;
 }
 
-.mdl{
+.mdl {
   // background-color: red;
   position: absolute;
   top: 2%;
   left: 0;
- 
 }
 
 // .mdl2{
@@ -43,15 +48,14 @@
   &:last-child {
     left: 0;
   }
-  
+  @extend .slow-transition;
 }
 
 .btngrpbtn {
- 
   height: 30px !important;
   width: 110px !important;
   text-align: center;
-  background-color: $gray-icon!important;
+  background-color: $background;
   // background-color: yellow!important;
   color: $text-secondary-dark;
   padding: 2px 0 2px;
@@ -61,21 +65,30 @@
     height: 50px !important;
     width: 162px !important;
     padding: 11px 0 12px;
-    background-color:$gray-icon!important;
-    color: $white;
+    background-color: $white;
     margin-left: 1px;
   }
   @include media-breakpoint-down(xsm) {
     width: 97px !important;
   }
   border-radius: 10px;
-  
-  
-   
+  border-radius: 10px;
+  position: relative;
+  top: 0px;
+  @extend .slow-transition;
 }
 
-.modalcnt{
+.btngrpbtn-active {
+  width: 110;
+  background-color: $white;
+  border-radius: 5px;
 
+  @include media-breakpoint-up(md) {
+    color: $text-white;
+    background-color: $secondary;
+    border-radius: 10px;
+  }
 }
 
-
+.modalcnt {
+}
