@@ -112,6 +112,6 @@ export const wrapper = createWrapper(makeStore, { storeKey: 'key' });
 import { wrapper } from '../lib/store'
 ...
 
-export default wrapper(MyApp)
+export default wrapper.withRedux(MyApp)
 ```
 Wrapper wraps the component inside the tags(context) which is used to load redux(it works like layout but with context instead of styles).
