@@ -115,3 +115,97 @@ import { wrapper } from '../lib/store'
 export default wrapper.withRedux(MyApp)
 ```
 Wrapper wraps the component inside the tags(context) which is used to load redux(it works like layout but with context instead of styles).
+
+
+## Redux persist
+Without redux persist, redux data will be erased if page is reloaded or closed, i.e. `{username}` in confirm page.
+
+### Installation
+[Docs](https://www.npmjs.com/package/redux-persist)
+```commandline
+npm i redux-persist
+```
+
+### Configuration
+
+In order to remedy the situation, we need to save redux data in local storage using a package called redux persist.
+
+Next js renders all js files in the server, and there is no local storage in the server.
+So we need to ensure that redux-persist won't be loaded in the server:
+
+```js
+`lib/store.js`
+import { persistStore } from 'redux-persist';
+
+const makeStore = (initialState) => {
+  const isClient = typeof window !== 'undefined';
+
+  if (isClient) {
+    const { persistReducer } = require('redux-persist');
+    .... /// All the work we do in this section happens here!
+  } else {
+    // load redux without redux persist
+  }
+}
+```
+
+Next we need to select where our data will be stored:
+
+```js
+    const storage = require('redux-persist/lib/storage').default;
+```
+
+We can load redux dev tools in the browser by adding the following code([docs](https://github.com/zalmoxisus/redux-devtools-extension))
+[New version](https://redux-toolkit.js.org/api/configureStore#basic-example)
+```js
+!!!! This is @deprecated
+
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+    ...
+    store = createStore(
+      ...
+      // Add enhancers to store middleware
+      composeEnhancers(...),
+    );
+```
+
+Now we need to add the persist reducer as the root reducer:
+```js
+    const persistConfig = {
+      key: 'root',
+      storage,
+    };
+
+    const persistedReducers = persistReducer(persistConfig, rootReducer); // Wrapper reducers: if incoming actions are persist actions, run persist commands otherwise use rootReducer to update the state
+
+    store = configureStore({reducer: persistedReducers, preloadedState: initialState,...});
+
+
+// This is now deprecated
+    // store = createStore(
+    //   persistedReducers,
+    //   initialState,...
+    // )
+
+    store.__PERSISTOR = persistStore(store);
+
+```
+
+Now we need to create a persist gate that wrapps all of our elements
+```js
+`_app.js`
+
+import { PersistGate } from 'redux-persist/integration/react';
+
+
+function MyApp({ Component, pageProps }) {
+  const store = useStore();
+  ...
+
+  return (
+    <PersistGate persistor={store.__PERSISTOR} loading={null}>
+      ...
+    </PersistGate>
+  );
+}

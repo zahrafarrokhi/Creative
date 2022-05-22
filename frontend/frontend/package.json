@@ -24,6 +24,7 @@
     "react-redux": "^8.0.1",
     "react-verification-input": "^2.0.6",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
