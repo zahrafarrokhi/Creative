@@ -14,12 +14,9 @@ export const requestMobileOTP = createAsyncThunk(
     try {
       const response = await axios.post('/api/auth/mobile/', {
         phone_number: phoneNumber,
-      });
-
-      // localStorage.setItem(METHOD_KEY, M_PHONE_NUMBER);
-      // localStorage.setItem(USERNAME_KEY, phoneNumber);
-
+      }); 
       return {
+        // save in state => reducer
         method: M_PHONE_NUMBER,
         username: phoneNumber,
         ...response.data,
@@ -28,6 +25,21 @@ export const requestMobileOTP = createAsyncThunk(
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   },
+  // async (_, thunkAPI) => {
+  //   try {
+  //     const response = await axios.post('/api/auth/mobile/', {
+  //       phone_number: _.phone_number,
+  //     }); 
+  //     return {
+  //       // save in state => reducer
+  //       method: M_PHONE_NUMBER,
+  //       username: phoneNumber,
+  //       ...response.data,
+  //     };
+  //   } catch (error) {
+  //     return thunkAPI.rejectWithValue({ error: error.response.data });
+  //   }
+  // },
 );
 
 export const requestEmailOTP = createAsyncThunk(
@@ -36,15 +48,24 @@ export const requestEmailOTP = createAsyncThunk(
     try {
       const response = await axios.post('/api/auth/email/', { email });
 
-      // localStorage.setItem(METHOD_KEY, M_EMAIL);
-      // localStorage.setItem(USERNAME_KEY, email);
-
       return { method: M_EMAIL, username: email, ...response.data };
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   },
 );
+
+export const login = createAsyncThunk('auth/login', async (cred, thunkAPI) => {
+  try {
+    const response = await axios.post('/api/auth/confirm/', cred);
+    // const response = await axios.post('/api/auth/confirm/', {phone_number: cred.phone_number, email: cred.email, token: cred.token});
+
+
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue({ error: error.response.data });
+  }
+});
 
 const internalInitialState = {
 
@@ -63,7 +84,9 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     // Mobile OTP
     builder.addCase(requestMobileOTP.fulfilled, (state, action) => {
+      // state.username = 0912...-> value in login.jsx
       state.username = action.payload.username;
+      // state.method = 'phone_number'
       state.method = action.payload.method;
       state.loading = IDLE;
 
@@ -79,7 +102,9 @@ export const authSlice = createSlice({
 
     // Email OTP
     builder.addCase(requestEmailOTP.fulfilled, (state, action) => {
+      // state.username = test@gmail.com -> value in login.jsx
       state.username = action.payload.username;
+      // state.method = 'email'
       state.method = action.payload.method;
       state.loading = IDLE;
 
@@ -92,7 +117,25 @@ export const authSlice = createSlice({
       ...state,
       loading: LOADING,
     }));
-
+ // Login
+//  builder.addCase(login.pending, (state) => ({
+//   ...state,
+//   loading: LOADING,
+// }));
+// builder.addCase(login.rejected, (state, action) => ({
+//   ...state,
+//   loading: IDLE,
+//   error: action.payload.error,
+// }));
+// builder.addCase(login.fulfilled, (state, action) => {
+//   state.accessToken = action.payload.access_tok;
+//   state.accessTokenExp = action.payload.access_tok_exp;
+//   state.refreshToken = action.payload.refresh_tok;
+//   state.refreshTokenExp = action.payload.refresh_tok_exp;
+//   state.loading = IDLE;
+//   state.me = action.payload.user;
+//   return state;
+// });
     
 
     
