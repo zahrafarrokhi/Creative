@@ -1,23 +1,104 @@
-import Rect from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../../styles/Confirm.module.scss";
 import LoginLayout from "../../components/LoginLayout";
 import VerificationInput from "react-verification-input";
 import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { GrRefresh } from "react-icons/gr";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { persianToEnglishDigits } from "../../lib/utils";
 
 const CODE_LENGTH = 4;
 const EXP_TIME = 120;
 
 const Confirm = () => {
-  const theme = useTheme();
+  const [code, setCode] = useState("");
+  const [time, setTime] = useState(EXP_TIME);
+  const [error, setError] = useState(false);
+  const timerRef = useRef(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  //
+  // export const M_PHONE_NUMBER = 'phone_number';
+  // export const M_EMAIL = 'email';
+  const method = useSelector((state) => state.authReducer.method);
+  // 0912... or email@...
+  const username = useSelector((state) => state.authReducer.username);
+  const user = useSelector((state) => state.authReducer?.me);
+
+  const startTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    const timerInterval = setInterval(() => {
+      if (time > 0) setTime((t) => (t > 0 ? t - 1 : t));
+      else clearInterval(timerRef.current);
+    }, 1000);
+    timerRef.current = timerInterval;
+  };
+
+  useEffect(() => {
+    startTimer();
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  // useEffect(() => {
+  // 	console.log(method, user)
+  // 	if (user && !(user[method] && user[`${method}_verified`])) return;
+  //   if (user && user.type === "patient") router.push("/patients/");
+  //   else if (user && user.type === "doctor") router.push("/doctor/");
+  //   else if (user && user.type === "support") router.push("/support/");
+  //   else if (user && user.type === "pharmacy") router.push("/pharmacy/list/");
+  //   else if (user && user.type === "laboratory") router.push("/laboratory/list/");
+  //   else if (user && user.type === "assistant") router.push("/doctor/");
+  // }, [user]);
+
+  const submit = async () => {
+    try {
+      console.log(code);
+      await dispatch(
+        // CallbackTokenSerializer
+        login({ token: code, [method]: username })
+      ).unwrap();
+      // Or
+      // if (method === "email")
+      //   await dispatch(
+      //     // CallbackTokenSerializer
+      //     login({ token: code, email: username })
+      //   ).unwrap();
+      // else
+      //   await dispatch(
+      //     // CallbackTokenSerializer
+      //     login({ token: code, phone_number: username })
+      //   ).unwrap();
+    } catch (e) {
+      setError(true);
+    }
+  };
+
+  const resendCode = async () => {
+    if (time > 0) return;
+    try {
+      if (method === M_PHONE_NUMBER) {
+        await dispatch(requestMobileOTP(username)).unwrap();
+      } else {
+        await dispatch(requestEmailOTP(username)).unwrap();
+      }
+      setTime(EXP_TIME);
+    } catch (e) {
+      setError(true);
+    }
+  };
+
   return (
     <div className={`d-flex flex-column   flex-grow-1   ${styles.cnt}`}>
       <div className="d-flex  flex-column align-items-center">
         <div className={`d-flex flex-row  ${styles.titlephone}`}>
           لطفا کد ارسال شده به شماره
         </div>
-        <div className={`d-flex flex-row ${styles.phone_num} `}>4555</div>
+        <div className={`d-flex flex-row ${styles.phone_num} `}>{username}</div>
         <div className={`d-flex flex-row  ${styles.titlephone}`}>
           وارد نمایید
         </div>
@@ -34,7 +115,7 @@ const Confirm = () => {
             length={CODE_LENGTH}
             placeholder=""
             validChars="0-9۰-۹"
-            // onChange={(e) => setCode(persianToEnglishDigits(e))}
+            onChange={(e) => setCode(persianToEnglishDigits(e))}
             removeDefaultStyles
             autoFocus
             dir="ltr"
@@ -63,32 +144,35 @@ const Confirm = () => {
           ادامه
         </Button> */}
         <div className="d-flex flex-column">
-        <button
-          className={`btn btn-primary mt-5 ${styles.btn}`}
-           // onClick={()=>{}}
-          // disabled={false}
-        >
-          ادامه
-        </button>
-        <div
-        className={` m-3 d-flex  flex-row justify-content-between ${styles.refreshcnt}`}
-      >
-        <div
-          className={`d-flex  ${styles.resendcode}`}
-          // onClick={()=>{}}
-          disabled={false}
-        >
-          ارسال مجدد
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={submit}
+            disabled={time === 0 || code.length !== 4}
+          >
+            مرحله‌ی بعد
+          </button>
+          <div
+            className={` m-3 d-flex  flex-row justify-content-between ${styles.refreshcnt}`}
+          >
+            <div
+              className={`d-flex  ${styles.resendcode}`}
+              onClick={resendCode}
+              disabled={time !== 0}
+            >
+              ارسال مجدد
+            </div>
+            <div className="d-flex align-items-center ">
+              <GrRefresh className={`${styles.refresh}`} />
+              {/* 90 => floor(1.5) -> 1 =>str(1)=>'1 */}
+              {/* '1'.padStart(2, '0') = '01' */}
+              {String(Math.floor(time / 60)).padStart(2, "0")}:
+              {/*90 %60 =>30 =>'30' =>   */}
+              {/* 01:30*/}
+              {String(time % 60).padStart(2, "0")}
+            </div>
+          </div>
         </div>
-        <div className="d-flex align-items-center ">
-          <GrRefresh className={`${styles.refresh}`} />
-         
-          
-        </div>
-      
-    </div>
-        </div>
-        
       </div>
     </div>
   );
