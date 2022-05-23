@@ -123,3 +123,10 @@ You should be in the right folder before you start react. Your main folder which
 ```
 npm run dev
 ```
+
+## git
+```
+git branch --show-current
+git config --list
+
+```
