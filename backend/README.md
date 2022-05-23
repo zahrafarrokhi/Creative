@@ -169,3 +169,32 @@ python manage.py createsuperuser2 --phone-number=09****** --password=1234
 
 python manage.py createsuperuser2 --email=example@test.com --password=1234
 ```
+
+# Setting up SMPT email service with gmail
+* [Tutorial](https://support.google.com/accounts/answer/6010255?hl=en#zippy=%2Cif-less-secure-app-access-is-on-for-your-account%2Cif-less-secure-app-access-is-off-for-your-account)
+* Be sure to allow less secure apps to use gmail: [Gmail](https://support.google.com/accounts/answer/6010255?hl=en#zippy=%2Cif-less-secure-app-access-is-on-for-your-account%2Cif-less-secure-app-access-is-off-for-your-account)
+
+ 
+In settings.py add email settings:
+
+```python
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_USE_TLS = True
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')
+EMAIL_USE_SSL = False
+```
+
+And then update .env file:
+
+```env
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+```
+
+You also need to create a template for your email. set this template in `authentication/services.py:34`
