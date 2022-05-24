@@ -12,18 +12,15 @@ const pageStyle = {
   height: "100%",
 };
 
-export const Page = ({
-  index,
-  renderPage,
-  pos,
-  x,
-  y,
-  onDragEnd,
-  clientHeight,
-  progress,
-  onDrag,
-}) => {
-  const child = React.useMemo(() => renderPage({ index }), [index, renderPage]);
+export const Page = (props) => {
+  const {
+    index,
+    renderPage,
+    x,
+    onDragEnd,
+  } = props;
+  const child = React.useMemo(() => renderPage(index), [index, renderPage]);
+  // const child = renderPage(index);
 
   return (
     <motion.div
@@ -108,12 +105,7 @@ const VirtualizedPage = ({ children, count, index, setIndex }) => {
           <Page
             key={rangeValue + index}
             x={x}
-            // y={y}
-            pos={rangeValue}
-            // progress={progress}
             onDragEnd={handleEndDrag}
-            // onDrag={handleDrag}
-            clientHeight={containerRef.current?.clientHeight || 1}
             index={rangeValue + index}
             renderPage={children}
           />
