@@ -24,12 +24,7 @@ const pageStyle = {
 };
 
 export const Page = (props) => {
-  const {
-    index,
-    renderPage,
-    x,
-    onDragEnd,
-  } = props;
+  const { index, renderPage, x, onDragEnd } = props;
   const child = React.useMemo(() => renderPage(index), [index, renderPage]);
   // const child = renderPage(index);
 
@@ -175,7 +170,7 @@ const NotificationCarousel = (props) => {
           index={index}
           setIndex={setIndex}
         >
-          {({ index }) => {
+          {(index) => {
             if (index >= WALKTHROUGH_ICONS.length || index < 0) {
               return <div></div>;
             }
