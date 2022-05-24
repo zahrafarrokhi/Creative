@@ -130,3 +130,14 @@ git branch --show-current
 git config --list
 
 ```
+
+# Splash Screen
+
+[framer](https://www.framer.com/docs/introduction/)
+
+```
+npm install framer-motion
+```
+
+
+
