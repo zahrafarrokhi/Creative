@@ -1,0 +1,86 @@
+@import "bootstrap-imports";
+@import "colors";
+
+.cnt {
+  width: 100vh;
+  // min-height: 100vh;
+  // height: 100vh;
+  z-index: 1000;
+  background-color: $background;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3em;
+  padding-top: 0.5em; 
+  overflow-y: auto;
+}
+
+.mainicn {
+  width: 200px;
+  height: 100px;
+}
+
+.header {
+  margin-bottom: 1em;
+}
+
+.text {
+  color: $text-secondary-dark;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.link {
+  color: $text-secondary-dark;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.carousel {
+  // min-height: 300px;
+  // min-height: 70%;
+  min-height: 70%;
+  // height: 70%;
+  height: calc(400px + 2em);
+  margin: 0.5em;
+
+  border-radius: 2em;
+  background-color: white;
+}
+
+.icon {
+  font-size: 1.5em;
+  color: $white;
+}
+
+.dotscnt {
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background-color: $disabled;
+}
+
+.dotactive {
+  background-color: #79c943;
+}
+
+.vps {
+  position: relative;
+}
+
+.btncnt {
+  width: 100%;
+  padding: 0 -2.5em;
+  height: 2em;
+  
+}
