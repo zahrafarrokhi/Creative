@@ -139,5 +139,54 @@ git config --list
 npm install framer-motion
 ```
 
+## Components:
+
+* Page: a component to render each page of carousel, it uses `renderPage` prop to load page data 
+* VirtualizedPage: Component responsible for rendering pages and handlign drag actions
+
+`renderPage` is passed to VirtualizedPage as children and then passed to page.
+its a function that takes an index and render the content for that specific index.
+
+* NotificationCarousel: Responsible for splash screen styles and carousel page data
+
+## Animation
+For a specific index, we move all elements to `-index * width` and then use left to push the elements in to page.
+We do this in order to have a consistant animation when index chagnes.
+
+* calculateNewX: calculates `-index * width` when index changes
+* handleEndDrag:
+This event has an dragEvent which consist of two variables, each of which is a 2D vector:
+  * offset: the amount page is dragged in one direction
+  * velocity: the speed of drag
+
+We will move to next/previous page if the page is dragged at lease a quarter of the width of the carousel, and the velocity in the x axis is greater than that of the y axis.
+
+
+The following code is used to animate pages when index changes, it changes the value of x to `calculateNewX` for the new index with the given transition.
+Then we call controls.stop to stop the animation when page is unmounting.
+```jsx
+ React.useEffect(() => {
+    const controls = animate(x, calculateNewX(), transition);
+    // const controls = animate(y, calculateNewY(), transition);
+    return controls.stop;
+  }, [index]);
+```
+
+
+## Only showing the splash screen on first view
+We use localStorage to check whether the user has already viewed the splash screen.
+Then after viewing all pages, we set `seen_splash` in localStorage to 1
+
+```jsx
+    localStorage.getItem("seen_splash") !== "1"
+    ...            
+    localStorage.setItem("seen_splash", 1);
+```
+
+Keep in mind that localStorage is in the browser and therefore doesn't exist when nextjs is trying to build this component, so we need to disable ssr for this component when importing it:
+```js
+  const SplashScreen = dynamic(() => import('../components/SplashScreen'), {ssr: false})
+
+```
 
 
