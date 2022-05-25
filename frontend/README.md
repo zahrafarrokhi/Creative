@@ -185,6 +185,9 @@ Then after viewing all pages, we set `seen_splash` in localStorage to 1
 
 Keep in mind that localStorage is in the browser and therefore doesn't exist when nextjs is trying to build this component, so we need to disable ssr for this component when importing it:
 ```js
+import dynamic from 'next/dynamic';
+...
+
   const SplashScreen = dynamic(() => import('../components/SplashScreen'), {ssr: false})
 
 ```

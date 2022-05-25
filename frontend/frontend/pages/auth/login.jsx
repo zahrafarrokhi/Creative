@@ -4,8 +4,16 @@ import LoginLayout from "../../components/LoginLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/dist/client/router";
 import { requestEmailOTP, requestMobileOTP } from "../../lib/slices/auth";
+import Loading from "../../components/Loading";
+import dynamic from "next/dynamic";
+
+// import SplashScreen from "../../components/SplashScreen";
 
 const Login = (props) => {
+  const SplashScreen = dynamic(() => import("../../components/SplashScreen"), {
+    ssr: false,
+  });
+
   // state
   const [state, setState] = useState("email");
   const [value, setValue] = useState();
@@ -15,7 +23,10 @@ const Login = (props) => {
   const [errorStr, setErrorStr] = useState(null);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  //loading
+  const isLoading = useSelector(
+    (state) => state.authReducer?.loading === "loading"
+  );
   const validate = () => {
     if (state === "phonenumber") {
       return /^09\d{9}$/g.test(value);
@@ -52,6 +63,10 @@ const Login = (props) => {
     <div
       className={`d-flex flex-column  align-items-center w-100 justify-content-center ${styles.bg} `}
     >
+      <SplashScreen />
+      {/* For testing loading component */}
+      {/* <Loading isLoading={true} /> */}
+      <Loading isLoading={isLoading} />
       {/* e.preventDefault dont do default action */}
       <form
         className={`d-flex flex-column w-100 ${styles.mdl}`}
