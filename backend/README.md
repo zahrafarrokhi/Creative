@@ -204,3 +204,18 @@ You also need to create a template for your email. set this template in `authent
 * [Tutorial](https://docs.djangoproject.com/en/4.0/topics/auth/customizing/)
 * [example1](https://virgool.io/@gholami.ayub73/custom-django-model-j3e1mpp4ri5t)
 * [example2](https://barnamenevisan.org/Articles/Article8849.html)
+```python
+models.py
+
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+class UserManager(BaseUserManager):
+     pass
+class User(AbstractUser):
+    ...
+    objects = UserManager() # manager:By default, Django adds a Manager with the name objects to every Django model class
+```
+### Managers
+By default, Django adds a Manager with the name [objects](https://docs.djangoproject.com/en/4.0/topics/db/managers/#manager-names-1) to every Django model class. 
+* [Tutorial](https://docs.djangoproject.com/en/4.0/topics/db/managers/)
+
