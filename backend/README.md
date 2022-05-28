@@ -198,3 +198,9 @@ EMAIL_HOST_PASSWORD=
 ```
 
 You also need to create a template for your email. set this template in `authentication/services.py:34`
+
+
+# Customizing authentication in Django
+* [Tutorial](https://docs.djangoproject.com/en/4.0/topics/auth/customizing/)
+* [example1](https://virgool.io/@gholami.ayub73/custom-django-model-j3e1mpp4ri5t)
+* [example2](https://barnamenevisan.org/Articles/Article8849.html)
