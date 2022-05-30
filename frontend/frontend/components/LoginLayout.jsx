@@ -9,7 +9,7 @@ const LoginLayout = (props) => {
 const router = useRouter();
   return(
    <div className={`d-flex flex-column align-items-center justify-content-center w-100 ${styles.maincnt}`}>
-    <div className={`d-flex flex-colum w-100 ${styles.cnt}`}>
+    <div className={`d-flex flex-column w-100 ${styles.cnt}`}>
     <IoChevronBackCircle
           className={backlink ? styles.back_link : "d-none"}
           onClick={() => router.back()}
