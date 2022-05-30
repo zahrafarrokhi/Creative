@@ -25,7 +25,28 @@ git checkout <branchname>
 [REST Toturial](https://www.django-rest-framework.org/tutorial/quickstart/)
 
 ```commandline
+# Create the project directory
+mkdir creative
+cd creative
+
+# Create a virtual environment to isolate our package dependencies locally
+
+python3 -m venv env
+source env/bin/activate  # On Windows use `env\Scripts\activate`
+
+# Install Django and Django REST framework into the virtual environment
+pip install django
+pip install djangorestframework
+
 pip freeze > requirements.txt
+
+# Set up a new project with a single application
+django-admin startproject backend .  # Note the trailing '.' character
+
+# Set up a app 
+django-admin startapp authentication
+
+
 ```
 
 ## Ignoring venv folder from git
