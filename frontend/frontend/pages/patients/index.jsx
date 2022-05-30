@@ -12,6 +12,12 @@ import styles from "../../styles/PatientSelectionDialog.module.scss";
 // import ErrorComponent from '../../components/ErrorComponent';
 
 const SelectPatient = (props) => {
+  const [selectedPatient, selectPatient] = useState(null);
+  const router = useRouter();
+  const newPatient = async () => {
+    router.push('/patients/new');
+  };
+
   return (
     <div
       className={`d-flex flex-column justify-content-center align-items-center `}
@@ -23,28 +29,41 @@ const SelectPatient = (props) => {
         </h3>
       </div>
       <div className={`d-flex flex-column p-3  align-items-center`}>
-        {[0, 1, 2]?.map((p) => (
-          <div key={p.id}>
-            <input
-              type="radio"
-              className={`btn-check ${styles.btn}`}
-              name="patientselect"
-              id={`patient_select_${p.id}`}
-              autoComplete="off"
-            />
-            <label
-              className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${styles.btn} ${styles.sbtn} `}
-              htmlFor={`patient_select_${p.id}`}
-            >
-              {p.first_name} {p.last_name}
-            </label>
-          </div>
-        ))}
+        {[0, 1, 2]
+          .map((i) => ({
+            id: i,
+            first_name: "patient",
+            last_name: i,
+          }))
+          .map((p) => (
+            <div key={p.id}>
+              <input
+                type="radio"
+                className={`btn-check ${styles.btn}`}
+                name="patientselect"
+                id={`patient_select_${p.id}`}
+                autoComplete="off"
+                onChange={() => selectPatient(p.id)}
+                checked={selectedPatient === p.id}
+              />
+              <label
+                className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${
+                  styles.btn
+                } ${styles.sbtn}  ${
+                  selectedPatient === p.id ? styles["sbtn-checked"] : ""
+                }`}
+                htmlFor={`patient_select_${p.id}`}
+              >
+                {p.first_name} {p.last_name}
+              </label>
+            </div>
+          ))}
 
         <div className={`mt-2`}>
           <button
             className={`btn btn-outline-primary ${styles.btn} ${styles.btnsm} ${styles["text-light-blue"]}`}
-            onClick={() => {}}
+            // onClick={() => {}}
+            onClick={newPatient}
           >
             <AiOutlinePlus className={`m-1 ${styles["plus-icon"]}`} />
             بیمار جدید
@@ -57,7 +76,7 @@ const SelectPatient = (props) => {
           type="submit"
           className="btn btn-primary flex-fill"
           // onClick={submit}
-          // disabled={selectedPatient === null}
+          disabled={selectedPatient === null}
         >
           ورود
         </button>
