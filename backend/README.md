@@ -7,7 +7,7 @@
 
 ```commandline
 # branch
-git branch -alh
+git branch -h
 
 # list 
 git branch Or git branch -a Or git branch -l
