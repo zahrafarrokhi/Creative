@@ -46,6 +46,18 @@ django-admin startproject backend .  # Note the trailing '.' character
 # Set up a app 
 django-admin startapp authentication
 
+************
+# The project layout should look like:
+$ pwd
+<some path>/backend
+$ find .
+************* 
+
+# migrate
+python manage.py migrate
+# createsuperuser
+python manage.py createsuperuser --email admin@example.com --username admin
+
 
 ```
 
