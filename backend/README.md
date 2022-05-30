@@ -4,7 +4,10 @@
 ## Basic Git commands
 
 [Basic Git commands](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html)
-
+```commandline
+# view commit history tree
+git log --graph
+```
 ```commandline
 # branch
 git branch -h
