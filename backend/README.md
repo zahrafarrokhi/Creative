@@ -30,7 +30,6 @@ mkdir creative
 cd creative
 
 # Create a virtual environment to isolate our package dependencies locally
-
 python3 -m venv env
 source env/bin/activate  # On Windows use `env\Scripts\activate`
 
@@ -57,6 +56,9 @@ $ find .
 python manage.py migrate
 # createsuperuser
 python manage.py createsuperuser --email admin@example.com --username admin
+
+# createsuperuser with commandline
+python manage.py createsuperuser2 --email=admin@example.com --password=1234
 
 
 ```
