@@ -5,6 +5,10 @@
 
 [Basic Git commands](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html)
 
+```commandline
+# branch
+git branch -alh
+```
 ## Setting up
 
 [REST Toturial](https://www.django-rest-framework.org/tutorial/quickstart/)
