@@ -8,6 +8,17 @@
 ```commandline
 # branch
 git branch -alh
+
+# list 
+git branch Or git branch -a Or git branch -l
+
+# new branch and switch
+git checkout -b <branchname>
+
+# Switch from one branch
+git checkout <branchname>
+
+
 ```
 ## Setting up
 
