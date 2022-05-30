@@ -23,6 +23,48 @@ git checkout <branchname>
 
 
 ```
+
+### Reset to a specific commit
+
+```commandline
+git log --graph # find commit hash you want to reset to
+```
+
+```commandline
+* commit 6c944544375f61a19c8920aa2d3a7cb4eef10ed4 (HEAD -> main, origin/main, origin/HEAD)
+| Author: zahrafarrokhi <zahrafarrokhi2017@gmail.com>
+| Date:   Mon May 30 16:10:19 2022 +0430
+| 
+|     add patients models and urls
+| 
+* commit 521bd3ed850144e7e93dd65889dd811a96cec3cf
+| Author: zahrafarrokhi <zahrafarrokhi2017@gmail.com>
+| Date:   Mon May 30 16:06:51 2022 +0430
+| 
+|     add patients app
+| 
+* commit 3324fe8a120ab98434beb66ad9bd5cdb22849815 ---> commit that we want
+| Author: zahrafarrokhi <zahrafarrokhi2017@gmail.com>
+| Date:   Mon May 30 16:01:58 2022 +0430
+| 
+|     fix state and style
+| 
+```
+
+```commandline
+ git reset --hard 3324fe8a120ab98434beb66ad9bd5cdb22849815
+ git reset --soft 3324fe8a120ab98434beb66ad9bd5cdb22849815 # keeps files
+  ```
+
+If you have already pushed to git, you need to use force. 
+Because git is a few commits ahead of you and thinks that you just haven't pulled yet
+so it asks you to `git pull` first.
+
+```commandline
+# use force to push
+git push --force origin main
+```
+
 ## Setting up
 
 [REST Toturial](https://www.django-rest-framework.org/tutorial/quickstart/)
