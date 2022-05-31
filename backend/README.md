@@ -365,4 +365,5 @@ fl.close()
 6. You will have a `0001-cities.json` fixture
 7. Copy this file to your fixtures folder
 ```
-python3 manage.py loaddata constant_data/fixtures/0001-cities.json```
+python3 manage.py loaddata constant_data/fixtures/0001-cities.json
+```
