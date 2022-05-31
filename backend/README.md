@@ -319,3 +319,50 @@ class User(AbstractUser):
 By default, Django adds a Manager with the name [objects](https://docs.djangoproject.com/en/4.0/topics/db/managers/#manager-names-1) to every Django model class. 
 * [Tutorial](https://docs.djangoproject.com/en/4.0/topics/db/managers/)
 
+## fixtures
+* [iran-cities](https://github.com/ahmadazizi/iran-cities)
+* You can find this example in `constant_data/fixtures/city_data_convertor`
+#### downlaod  csv files
+1. Create a city_data_convertor folder to download and convert city data
+2. cd city_data_convertor
+3. Download data
+```commandline
+# terminal
+wget https://raw.githubusercontent.com/ahmadazizi/iran-cities/master/releases/v3.0/csv/ostan.csv
+wget https://raw.githubusercontent.com/ahmadazizi/iran-cities/master/releases/v3.0/csv/shahrestan.csv
+```
+
+4. Create `convert.py`
+```python
+import csv
+import json
+
+data = []
+
+with open('./ostan.csv') as csvFile:
+    reader = csv.reader(csvFile)
+    next(reader)
+    for row in reader:
+        data.append({'model': 'constant_data.city', 'pk': row[0],
+                     'fields': {'fa_name': row[1], 'name': row[1]}})
+
+with open('./shahrestan.csv') as csvFile:
+    reader = csv.reader(csvFile)
+    next(reader)
+    for row in reader:
+        data.append({'model': 'constant_data.city', 'pk': 60 + int(row[0]),
+                     'fields': {'fa_name': row[1], 'name': row[1], 'parent':
+                                row[2]}})
+
+
+fl = open("0001-cities.json", 'w')
+
+json.dump(data, fl)
+
+fl.close()
+```
+5. run `python3 convert.py`
+6. You will have a `0001-cities.json` fixture
+7. Copy this file to your fixtures folder
+```
+python3 manage.py loaddata constant_data/fixtures/0001-cities.json```
