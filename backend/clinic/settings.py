@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'constant_data',
     'base_classes',
     'authentication',
+    'patients',
 ]
 
 MIDDLEWARE = [
