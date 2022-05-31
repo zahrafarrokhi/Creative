@@ -333,7 +333,8 @@ wget https://raw.githubusercontent.com/ahmadazizi/iran-cities/master/releases/v3
 ```
 
 4. Create `convert.py`
-[python-csv](https://sabzdanesh.com/python-csv/)
+
+* [python-csv](https://sabzdanesh.com/python-csv/)
 ```python
 import csv
 import json
