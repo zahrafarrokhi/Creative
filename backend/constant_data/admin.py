@@ -5,7 +5,7 @@ from .models import City, SupplementaryInsurance
 
 # Register your models here.
 class CityAdmin(admin.ModelAdmin):
-    search_fields = ('name', 'fa_name', 'parent')
+    search_fields = ('name', 'fa_name',)
     list_display = ('name', 'fa_name', 'parent')
     ordering = ('name', 'parent',)
 
