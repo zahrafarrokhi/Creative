@@ -370,6 +370,32 @@ fl.close()
 python3 manage.py loaddata constant_data/fixtures/0001-cities.json
 
 ```
+
+## perform_create 
+as you know save is update or create.in this instance(perform_create)
+save means create object
+
+```python
+    def save(self, **kwargs):
+        ...
+        validated_data = {**self.validated_data, **kwargs}
+
+        if self.instance is not None:
+            self.instance = self.update(self.instance, validated_data)
+            ...
+        else:
+            self.instance = self.create(validated_data)
+            ...
+
+        return self.instance
+
+```
+
+calling serializer.save()
+
+
+You can customize actions before or after saving
+
 # Gis Database
 
 [Gis django installation guide](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/install/#installation)

@@ -57,6 +57,12 @@ class PatientSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
+
+        # sample = PATIENTS.get(
+        #     validated_data['national_id'], DEF_DATA)
+        # validated_data['first_name'] = sample['first_name']
+        # validated_data['last_name'] = sample['last_name']
+        # validated_data['gender'] = sample['gender']
         patient = Patient(
             user=user,
             national_id=validated_data.get('national_id'),
