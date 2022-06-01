@@ -368,4 +368,22 @@ fl.close()
 7. Copy this file to your fixtures folder
 ```
 python3 manage.py loaddata constant_data/fixtures/0001-cities.json
+
 ```
+# Gis Database
+
+[Gis django installation guide](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/install/#installation)
+
+You need to configure postgres for gis
+* [Postgis](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/install/postgis/)
+
+As the guide suggests you need to install the following messages:
+* [Geos](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/install/geolibs/#geosbuild)
+  * [Geos](https://libgeos.org/usage/install/)
+* [Proj4](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/install/geolibs/#proj4)
+  * [Proj4](https://proj.org/)
+* [Gdal](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/install/geolibs/#gdalbuild)
+  * [Gdal](https://gdal.org/)
+
+Next you need to change database engine in `settings.py` to the one specified in the following link 
+[Spatial Backends](https://docs.djangoproject.com/en/4.0/ref/contrib/gis/db-api/#spatial-backends)
