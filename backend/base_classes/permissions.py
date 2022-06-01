@@ -27,6 +27,7 @@ class IsOwner(permissions.BasePermission):
         user = request.user
 
         if getattr(obj, 'user', None) == user:
+            # example =>visit.user = request.user
             return True
         # because fk relation is not true
         # if getattr(obj, 'patient', None) == user:
