@@ -1,5 +1,26 @@
 from rest_framework import permissions
 
+#
+"""
+class A:
+  def __init__(self, gotname):
+    # self.name = gotname
+    self.ename = gotname
+
+a = A(gotname='zahra')
+
+getattr(a, 'name', None)
+a.name
+
+setattr(a, 'name', 'mina')
+a.name = 'mina'
+
+
+hasattr(a, 'name')
+if a.name:
+    pass
+"""
+
 
 class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
