@@ -109,7 +109,7 @@ def validate_token_age(token):
     except OTP.DoesNotExist:
         return False
 
-
+# confirm page
 class CallbackTokenSerializer(serializers.Serializer):
     phone_regex = RegexValidator(
         regex=r'^\d{10,16}$', message=_("Invalid Mobile Number"))
@@ -204,7 +204,7 @@ class CallbackTokenSerializer(serializers.Serializer):
             msg = _('Invalid ailas parameters provided.')
             raise serializers.ValidationError(msg)
 
-
+# (response401 => unauthorized(access token expired)) =>TokenRefreshSerializer excute in  backgruond
 class TokenRefreshSerializer(serializers.Serializer):
     refresh = serializers.CharField()
     user_id = serializers.CharField()
