@@ -207,8 +207,8 @@ export default Login;
 
 ```
 
-```jsx
-style.css
+```scss
+
 @import "colors";
 @import "bootstrap-imports";
 
@@ -300,7 +300,54 @@ style.css
 
 
 ```
+## confirm page(Timer)
+In order to create a countdown timer we need to use setInterval and change our time(which is a state) every second
+```jsx
+const timerRef = useRef(null); // kind of like a pointer to a value
+const [time, setTime] = useState(120)
+```
+We use `timerRef` to save the setInterval value so that we can erase it later.
 
+Refs in js are like pointers, in order to access their value we use `.current`.
+
+```jsx
+const startTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current); // Clear previous set interval (if exists)
+    const timerInterval = setInterval(() => { // Create a new interval
+      if (time > 0) setTime((t) => (t > 0 ? t - 1 : t)); 
+      else clearInterval(timerRef.current); // Clear the interval if time === 0
+    }, 1000);
+    timerRef.current = timerInterval; // Save timerInterval to timerRef so that it can be erased later
+  };
+```
+
+### setState syntax with function:
+Usually we use `setState(newvalue)` to update our state.
+But if our current state depends on its previous value we can use the following syntax
+```jsx
+setState((previous_value) => {
+  const new_value = previous_value * 2
+  return new_value
+});
+
+const getNewValue = (previous) => (previous - 1)
+setState(getNewValue)
+```
+
+### useEffect hook to stop/start timer
+```jsx
+ useEffect(() => {
+   // use effect body is componentDidMount
+   // it runs when component initially renders in page or when page loads for the first time
+    startTimer(); // Start time on page load
+    return () => { // return should be a function
+      // use effect return body is componentDidUnmount
+      // it runs when component gets removed from the page or page gets closed
+      if (timerRef.current) clearInterval(timerRef.current); // if page is closing and timer is running, stop it
+    };
+  }, []);
+
+```
 # Splash Screen
 
 [framer](https://www.framer.com/docs/introduction/)
