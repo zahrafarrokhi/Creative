@@ -8,6 +8,7 @@ import { GrRefresh } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { persianToEnglishDigits } from "../../lib/utils";
+import { login } from "../../lib/slices/auth";
 
 const CODE_LENGTH = 4;
 const EXP_TIME = 120;
@@ -44,22 +45,22 @@ const Confirm = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  // 	console.log(method, user)
-  // 	if (user && !(user[method] && user[`${method}_verified`])) return;
-  //   if (user && user.type === "patient") router.push("/patients/");
-  //   else if (user && user.type === "doctor") router.push("/doctor/");
-  //   else if (user && user.type === "support") router.push("/support/");
-  //   else if (user && user.type === "pharmacy") router.push("/pharmacy/list/");
-  //   else if (user && user.type === "laboratory") router.push("/laboratory/list/");
-  //   else if (user && user.type === "assistant") router.push("/doctor/");
-  // }, [user]);
+  useEffect(() => {
+    console.log(method, user);
+    if (user && !(user[method] && user[`${method}_verified`])) return;
+    if (user && user.type === "patient") router.push("/patients/");
+    // else if (user && user.type === "doctor") router.push("/doctor/");
+    // else if (user && user.type === "support") router.push("/support/");
+    // else if (user && user.type === "pharmacy") router.push("/pharmacy/list/");
+    // else if (user && user.type === "laboratory") router.push("/laboratory/list/");
+    // else if (user && user.type === "assistant") router.push("/doctor/");
+  }, [user]);
 
   const submit = async () => {
     try {
       console.log(code);
       await dispatch(
-        // 
+        //
         // login({token:'1234','email':'z@yahoo.com'}) # token,email=>backend(CallbackTokenSerializer)
         // method => redux
 
@@ -88,6 +89,7 @@ const Confirm = () => {
       //     login({ token: code, phone_number: username })
       //   ).unwrap();
     } catch (e) {
+      console.log(e);
       setError(true);
     }
   };
