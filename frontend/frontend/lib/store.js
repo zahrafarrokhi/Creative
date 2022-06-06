@@ -9,6 +9,7 @@ import { compose } from 'redux';
 import { createWrapper, MakeStore, HYDRATE } from 'next-redux-wrapper';
 import { authSlice } from './slices/auth';
 import { persistStore } from 'redux-persist';
+import { patientsSlice } from './slices/patients';
 
 const makeStore = (initialState) => {
   let store;
@@ -22,7 +23,7 @@ const makeStore = (initialState) => {
 
     const combinedReducers = combineReducers({
       authReducer: authSlice.reducer,
-      
+      patientReducer : patientsSlice.reducer,
     });
 
     const rootReducer = (state, action) => {
