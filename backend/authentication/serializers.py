@@ -38,11 +38,15 @@ class AbstractBaseAuthenticationSerializer(serializers.Serializer):
         raise NotImplementedError
 
     def validate(self, attrs):
+        #  phone_number = attrs.get('phone_number', None)
+        #  email = attrs.get('email', None)
+        # example
+        # alias_type = 'phone_number'
+        # attrs.get(self.alias_type) = '0912...' = alias
         alias = attrs.get(self.alias_type)
 
         #  phone_number = attrs.get('phone_number', None)
         #  email = attrs.get('email', None)
-
         #  if phone_number is None and email is None:
         if alias is None:
             msg = _("Please fill the required fields")
@@ -73,7 +77,7 @@ class AbstractBaseAuthenticationSerializer(serializers.Serializer):
             raise serializers.ValidationError(msg)
 
         attrs['user'] = user
-        return attrs
+        return attrs # {'user': User(), 'phone_number': '0923....'}
 
 
 class EmailAuthSerializer(AbstractBaseAuthenticationSerializer):
@@ -109,7 +113,7 @@ def validate_token_age(token):
     except OTP.DoesNotExist:
         return False
 
-# confirm page
+# confirm page(validate otp = 4 digits)
 class CallbackTokenSerializer(serializers.Serializer):
     phone_regex = RegexValidator(
         regex=r'^\d{10,16}$', message=_("Invalid Mobile Number"))
@@ -119,7 +123,7 @@ class CallbackTokenSerializer(serializers.Serializer):
     token = TokenField(min_length=api_settings.OTP_LENGTH, max_length=api_settings.OTP_LENGTH,
                        validators=[validate_token_age])
     user = UserSerializer(many=False, read_only=True)
-
+    # attrs (user insert data = request.POST/request.data)
     def validate_alias(self, attrs):
         email = attrs.get('email', None)
         phone_number = attrs.get('phone_number', None)
@@ -139,7 +143,7 @@ class CallbackTokenSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         try:
-            alias_type, alias = self.validate_alias(attrs)
+            alias_type, alias = self.validate_alias(attrs) # 'email', 'z@yahoo.com' -> line 138,140
 
             callback_token = attrs.get('token', None)
 
