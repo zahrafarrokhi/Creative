@@ -3,20 +3,35 @@ import LoginLayout from "../../components/LoginLayout";
 import { useRouter } from "next/dist/client/router";
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlinePlus } from "react-icons/ai";
-// import { loadPatients, loginAsPatient } from '../../lib/slices/patients';
-// import { user } from '../../lib/authorize';
 import LoginStyles from "../../styles/LoginModal.module.scss";
 import styles from "../../styles/PatientSelectionDialog.module.scss";
+import { loadPatients, loginAsPatient } from "../../lib/slices/patients";
 // import MainIcon from '../../icons/main-icon-big.svg';
 // import { deconstruct } from '../../lib/utils';
 // import ErrorComponent from '../../components/ErrorComponent';
 
 const SelectPatient = (props) => {
+  const patients = useSelector((state) => state.patientReducer?.patients);
   const [selectedPatient, selectPatient] = useState(null);
   const router = useRouter();
+  const dispatch = useDispatch();
   const newPatient = async () => {
-    router.push('/patients/new');
+    router.push("/patients/new");
   };
+
+  const getPatients = async ()=>{
+    try {
+
+   await dispatch(loadPatients()).unwrap();
+      
+    } catch (error) {
+      
+    }
+  }
+  const submit = ()=>{
+    dispatch(loginAsPatient(selectedPatient))
+  }
+  useEffect (()=>{getPatients()},[])
 
   return (
     <div
@@ -29,13 +44,36 @@ const SelectPatient = (props) => {
         </h3>
       </div>
       <div className={`d-flex flex-column p-3  align-items-center`}>
-        {[0, 1, 2]
+        {/* {[0, 1, 2]
           .map((i) => ({
             id: i,
             first_name: "patient",
             last_name: i,
           }))
           .map((p) => (
+            <div key={p.id}>
+              <input
+                type="radio"
+                className={`btn-check ${styles.btn}`}
+                name="patientselect"
+                id={`patient_select_${p.id}`}
+                autoComplete="off"
+                onChange={() => selectPatient(p.id)}
+                checked={selectedPatient === p.id}
+              />
+              <label
+                className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${
+                  styles.btn
+                } ${styles.sbtn}  ${
+                  selectedPatient === p.id ? styles["sbtn-checked"] : ""
+                }`}
+                htmlFor={`patient_select_${p.id}`}
+              >
+                {p.first_name} {p.last_name}
+              </label>
+            </div>
+          ))} */}
+        {patients?.map((p,index,arr) => (
             <div key={p.id}>
               <input
                 type="radio"
@@ -75,7 +113,7 @@ const SelectPatient = (props) => {
         <button
           type="submit"
           className="btn btn-primary flex-fill"
-          // onClick={submit}
+          onClick={submit}
           disabled={selectedPatient === null}
         >
           ورود
