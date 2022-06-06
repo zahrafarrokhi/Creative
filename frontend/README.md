@@ -131,6 +131,176 @@ git config --list
 
 ```
 
+## radio button group on login page
+```jsx
+import React, { useState } from "react";
+import styles from "../../styles/Login.module.scss";
+
+function Login() {
+  const [state, setState] = useState("email");
+  return (
+    <div
+      className={`d-flex flex-column  align-items-center w-100 justify-content-center ${styles.bg} `}
+    >
+      <form action=" " className={`d-flex flex-column w-100 ${styles.mdl}`}>
+        <div
+          className={`d-flex align-items-center justify-content-center p-4 ${styles.mdl2}`}
+        >
+          <div
+            className={`btn-group d-flex ${styles.btngrp}`}
+            dir="rtl"
+            role="group"
+            aria-label="Status button group"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setState(e.target.value);
+            }}
+          >
+            <div className="p-0 m-0 d-flex flex-grow-1 align-items-center justify-content-center">
+              <input
+                dir="rtl"
+                type="radio"
+                className="btn-check"
+                name="statusbutton"
+                id="btnradiophonenumber"
+                onChange={() => ({})}
+                value={"phonenumber"}
+              />
+              <label
+                className={`${styles.btngrpbtn} ${
+                  state === "phonenumber" ? styles["btngrpbtn-active"] : ""
+                } `}
+                htmlFor="btnradiophonenumber"
+              >
+                تلفن‌همراه
+              </label>
+            </div>
+
+            <div className="p-0 m-0 d-flex flex-grow-1 align-items-center justify-content-center">
+              <input
+                dir="rtl"
+                type="radio"
+                className="btn-check"
+                name="statusbutton"
+                id="btnradioemail"
+                onChange={() => ({})}
+                value={"email"}
+              />
+              <label
+                className={`${styles.btngrpbtn}  ${
+                  state === "email" ? styles["btngrpbtn-active"] : ""
+                }`}
+                htmlFor="btnradioemail"
+              >
+                ایمیل
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+
+export default Login;
+
+```
+
+```jsx
+style.css
+@import "colors";
+@import "bootstrap-imports";
+
+.slow-transition {
+  -webkit-transition: all 0.3s 0.1s ease-in-out;
+  -moz-transition: all 0.3s 0.1s ease-in-out;
+  -o-transition: all 0.3s 0.1s ease-in-out;
+  transition: all 0.3s 0.1s ease-in-out;
+}
+
+.bg {
+  // background-color: blue;
+  position: relative;
+}
+
+.mdl {
+  // background-color: red;
+  position: absolute;
+  top: 2%;
+  left: 0;
+}
+
+
+
+.btngrp {
+  width: 240px !important;
+  height: 40px !important;
+  padding: 5px;
+  background-color: $text-secondary;
+  // background-color: red;
+
+  @include media-breakpoint-up(md) {
+    padding: 0px;
+    height: 50px !important;
+    width: 327px !important;
+    border: 1px solid $secondary;
+    background-color: $text-secondary;
+    // background-color: red;
+  }
+  border-radius: 10px;
+  overflow: hidden;
+  &:first-child {
+    right: 0;
+  }
+  &:last-child {
+    left: 0;
+  }
+  @extend .slow-transition;
+}
+
+.btngrpbtn {
+  height: 30px !important;
+  width: 110px !important;
+  text-align: center;
+  background-color: $background;
+  // background-color: yellow!important;
+  color: $text-secondary-dark;
+  // padding: 2px 0 2px;
+  // margin: 0px;
+  // margin-left: 1px;
+  @include media-breakpoint-up(md) {
+    height: 50px !important;
+    width: 162px !important;
+    padding: 11px 0 12px;
+    background-color: $white;
+    margin-left: 1px;
+  }
+  @include media-breakpoint-down(xsm) {
+    width: 97px !important;
+  }
+  border-radius: 10px;
+  border-radius: 10px;
+  position: relative;
+  top: 0px;
+  @extend .slow-transition;
+}
+
+.btngrpbtn-active {
+  width: 110;
+  background-color: $white;
+  border-radius: 5px;
+
+  @include media-breakpoint-up(md) {
+    color: $text-white;
+    background-color: $secondary;
+    border-radius: 10px;
+  }
+}
+
+
+```
+
 # Splash Screen
 
 [framer](https://www.framer.com/docs/introduction/)
@@ -191,5 +361,8 @@ import dynamic from 'next/dynamic';
   const SplashScreen = dynamic(() => import('../components/SplashScreen'), {ssr: false})
 
 ```
+
+
+
 
 
