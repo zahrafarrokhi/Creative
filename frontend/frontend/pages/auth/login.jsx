@@ -123,7 +123,7 @@ const Login = (props) => {
               </label>
             </div>
           </div>
-        </div>
+        </div>        
         <div className="row justify-content-around">
           <div
             className={`d-flex flex-column p-5 ${styles.modalcnt} w-100 align-items-center`}
@@ -157,7 +157,7 @@ const Login = (props) => {
           >
             <button
               type="submit"
-              className={`btn btn-primary ${styles.btn}`}
+              className={`btn btn-primary `}
               // onClick={() => ({})}
               onClick={submit}
             >
