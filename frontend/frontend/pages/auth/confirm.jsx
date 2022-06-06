@@ -38,7 +38,7 @@ const Confirm = () => {
 
   useEffect(() => {
     startTimer();
-
+    // unmount
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
@@ -59,10 +59,24 @@ const Confirm = () => {
     try {
       console.log(code);
       await dispatch(
-        // CallbackTokenSerializer
+        // 
+        // login({token:'1234','email':'z@yahoo.com'}) # token,email=>backend(CallbackTokenSerializer)
+        // method => redux
+
+        // export const requestMobileOTP = createAsyncThunk(
+        // 'auth/mobileotp',
+        // ...
+        // return {
+        // save in state => reducer
+        // method: M_PHONE_NUMBER,
+        // ...
+        //  builder.addCase(requestMobileOTP.fulfilled, (state, action) => {
+        // state.username = action.payload.username;
+        // state.method = action.payload.method;
+
         login({ token: code, [method]: username })
       ).unwrap();
-      // Or
+      //[method]  Or
       // if (method === "email")
       //   await dispatch(
       //     // CallbackTokenSerializer
@@ -82,8 +96,10 @@ const Confirm = () => {
     if (time > 0) return;
     try {
       if (method === M_PHONE_NUMBER) {
+        // username = '0912....'
         await dispatch(requestMobileOTP(username)).unwrap();
       } else {
+        // username = 'email@gmail.com'
         await dispatch(requestEmailOTP(username)).unwrap();
       }
       setTime(EXP_TIME);
@@ -115,6 +131,7 @@ const Confirm = () => {
             length={CODE_LENGTH}
             placeholder=""
             validChars="0-9۰-۹"
+            // e => '1234'
             onChange={(e) => setCode(persianToEnglishDigits(e))}
             removeDefaultStyles
             autoFocus
@@ -164,7 +181,7 @@ const Confirm = () => {
             </div>
             <div className="d-flex align-items-center ">
               <GrRefresh className={`${styles.refresh}`} />
-              {/* 90 => floor(1.5) -> 1 =>str(1)=>'1 */}
+              {/* 90/60 = 1.5 => floor(1.5) -> 1 =>str(1)=>'1 */}
               {/* '1'.padStart(2, '0') = '01' */}
               {String(Math.floor(time / 60)).padStart(2, "0")}:
               {/*90 %60 =>30 =>'30' =>   */}

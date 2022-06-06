@@ -118,24 +118,24 @@ export const authSlice = createSlice({
       loading: LOADING,
     }));
  // Login
-//  builder.addCase(login.pending, (state) => ({
-//   ...state,
-//   loading: LOADING,
-// }));
-// builder.addCase(login.rejected, (state, action) => ({
-//   ...state,
-//   loading: IDLE,
-//   error: action.payload.error,
-// }));
-// builder.addCase(login.fulfilled, (state, action) => {
-//   state.accessToken = action.payload.access_tok;
-//   state.accessTokenExp = action.payload.access_tok_exp;
-//   state.refreshToken = action.payload.refresh_tok;
-//   state.refreshTokenExp = action.payload.refresh_tok_exp;
-//   state.loading = IDLE;
-//   state.me = action.payload.user;
-//   return state;
-// });
+ builder.addCase(login.pending, (state) => ({
+  ...state,
+  loading: LOADING,
+}));
+builder.addCase(login.rejected, (state, action) => ({
+  ...state,
+  loading: IDLE,
+  error: action.payload.error,
+}));
+builder.addCase(login.fulfilled, (state, action) => {
+  state.accessToken = action.payload.access_tok;
+  state.accessTokenExp = action.payload.access_tok_exp;
+  state.refreshToken = action.payload.refresh_tok;
+  state.refreshTokenExp = action.payload.refresh_tok_exp;
+  state.loading = IDLE;
+  state.me = action.payload.user;
+  return state;
+});
     
 
     
