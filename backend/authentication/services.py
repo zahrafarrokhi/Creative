@@ -45,12 +45,15 @@ class EmailService:
     def send_email(recipient_list, subject, template, variables):
         message = render_to_string(template, variables)
         try:
+            print("sending")
             send_mail(subject=subject,
                       html_message=message,
                       message=strip_tags(message),
                       from_email=None,
                       recipient_list=recipient_list,
                       fail_silently=False,)
+            print("sent")
+
         except Exception as e:
             logger.error("Failed to send EMail")
             logger.exception(e)

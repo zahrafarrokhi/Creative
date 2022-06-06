@@ -65,7 +65,8 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=20)
     reciever = models.CharField(max_length=64)
     phone_number = models.CharField(max_length=16)
-    location = gis_models.PointField()
+    location = models.JSONField()
+    # location = gis_models.PointField()
 
     def __str__(self):
         return f"{self.name} {self.postal_code} ({self.phone_number}, {self.user})"

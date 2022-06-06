@@ -173,7 +173,9 @@ class CallbackTokenSerializer(serializers.Serializer):
                 token.is_active = False
                 token.save()
 
-                attrs['user'] = user
+                # This results in error because user is not serializable
+                # attrs['user'] = user
+                attrs['user'] = UserSerializer(instance=user).data
 
                 # Create JWT?!? (user, *_*created_at*_*, updated_at, exp_date, session) ?!?jedi?!?
                 access_token = AccessToken.for_user(user)
@@ -227,7 +229,7 @@ class TokenRefreshSerializer(serializers.Serializer):
             msg = _('Invalid token')
             raise serializers.ValidationError(msg)
         except User.DoesNotExist:
-            msg = _('Invalid token')
+            msg = _('Invalid user')
             raise serializers.ValidationError(msg)
 
         return data

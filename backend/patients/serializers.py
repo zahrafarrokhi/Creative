@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from rest_framework_gis.serializers import GeoFeatureModelSerializer
-from rest_framework_gis.fields import GeometryField
+# from rest_framework_gis.serializers import GeoFeatureModelSerializer
+# from rest_framework_gis.fields import GeometryField
 from django.utils.translation import gettext_lazy as _
 from .models import Patient, Address
 from constant_data.models import City
@@ -81,7 +81,7 @@ class PatientSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        geo_field = "location"
+        # geo_field = "location"
         fields = '__all__'
         read_only_fields = ['user']
 

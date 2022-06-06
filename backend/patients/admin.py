@@ -12,7 +12,7 @@ class PatientAdmin(admin.ModelAdmin):
     fieldsets = (
         ('patient info',
          {'fields': ('user', 'national_id', 'last_name', 'first_name', 'date_of_birth',
-                     'gender', 'city', 'last_used_doctor', 'supplementary_insurance',
+                     'gender', 'city', 'supplementary_insurance',
                      'insurance')}),
     )
 
