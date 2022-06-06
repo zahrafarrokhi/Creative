@@ -82,7 +82,7 @@ function MyApp({ Component, pageProps }) {
 ```
 
 # Selecting a patient
-![Selecting a patient](../../../screenshots/patient_index.png)
+![Selecting a patient](../../../screenshots/patients_index.png)
 In order to save the selected patient so that it can be accessed in all pages, we can use Redux(you can also do it with localstorage and react context but we already have redux setup here so whats the point)
 
 So we need a reducer that takes a patient_id and saves the corresponding patient's data in redux state.
