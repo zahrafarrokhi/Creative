@@ -109,3 +109,120 @@ const submit = ()=>{
 state is the current state of redux that needs to be updated according to this action.
 So we need to update the state according to action.type and action.payload.
 in this instance action.payload the function parameter in dispatch(selectedPatient).
+
+
+# Using css selectors instead of conditional rendering for showing selected patient
+1. Conditional Rendeing
+```jsx
+ <input
+  type="radio"
+  className={`btn-check ${styles.btn}`}
+  name="patientselect"
+  id={`patient_select_${p.id}`}
+  autoComplete="off"
+  onChange={() => selectPatient(p.id)}
+/>
+<label
+  className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${
+    styles.btn
+  } ${styles.sbtn}  ${
+    selectedPatient === p.id ? styles["sbtn-checked"] : ""
+  }`}
+  htmlFor={`patient_select_${p.id}`}
+>
+```
+```scss
+.btn {
+  border: 1px solid $secondary-border;
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: pointer;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    width: 320px !important;
+  }
+}
+.sbtn {
+  text-align: center;
+  color: black !important;
+  border: 1px solid $secondary-border !important;
+  background-color: $white !important;
+  line-height: 2.25em;
+
+  &:checked,
+  &:active,
+  &:focus,
+  &:hover {
+    border: 2px solid $primary !important;
+    background-color: $white !important;
+    -webkit-box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+    box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+  }
+
+  &:hover {
+    -webkit-box-shadow: 0 0 0 0.25rem rgb(63 169 245 / 50%);
+    box-shadow: 0 0 0 0.25rem rgb(63 169 245 / 50%);
+  }
+}
+
+.sbtn-checked {
+  border: 2px solid $primary !important;
+  background-color: $white !important;
+  -webkit-box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+  box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+}
+
+```
+
+2. Css selecotrs
+```jsx
+ <input
+  type="radio"
+  className={`btn-check ${styles.btn}`}
+  name="patientselect"
+  id={`patient_select_${p.id}`}
+  autoComplete="off"
+  onChange={() => selectPatient(p.id)}
+  checked={selectedPatient === p.id}
+/>
+<label
+  className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${styles.btn} ${styles.sbtn1}`}
+  htmlFor={`patient_select_${p.id}`}
+>
+```
+```scss
+.btn {
+  border: 1px solid $secondary-border;
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: pointer;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    width: 320px !important;
+  }
+}
+.sbtn1 {
+  text-align: center;
+  color: black !important;
+  border: 1px solid $secondary-border !important;
+  background-color: $white !important;
+  line-height: 2.25em;
+
+  .btn:checked + & { /// IMPORTANT
+    border: 2px solid $primary !important;
+    background-color: $white !important;
+    -webkit-box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+    box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+  }
+
+  &:hover {
+    -webkit-box-shadow: 0 0 0 0.25rem rgb(63 169 245 / 50%);
+    box-shadow: 0 0 0 0.25rem rgb(63 169 245 / 50%);
+  }
+}
+
+```

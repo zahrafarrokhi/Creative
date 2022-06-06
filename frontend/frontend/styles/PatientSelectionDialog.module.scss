@@ -1,10 +1,9 @@
 @import "bootstrap-imports";
 @import "colors";
 
-
-.fz{
+.fz {
   max-width: 80%;
-  
+
   font-weight: bold;
 }
 .plus-icon {
@@ -15,12 +14,11 @@
   font-size: 1em;
   line-height: 1.5em;
   cursor: pointer;
-  
 
   @include media-breakpoint-up(md) {
     font-size: 1.2em;
     line-height: 1.5em;
-    width:320px!important;
+    width: 320px !important;
   }
 }
 .sbtn {
@@ -51,4 +49,24 @@
   background-color: $white !important;
   -webkit-box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
   box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+}
+
+.sbtn1 {
+  text-align: center;
+  color: black !important;
+  border: 1px solid $secondary-border !important;
+  background-color: $white !important;
+  line-height: 2.25em;
+
+  .btn:checked + & {
+    border: 2px solid $primary !important;
+    background-color: $white !important;
+    -webkit-box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+    box-shadow: 0 0 0 0rem rgb(63 169 245 / 50%) !important;
+  }
+
+  &:hover {
+    -webkit-box-shadow: 0 0 0 0.25rem rgb(63 169 245 / 50%);
+    box-shadow: 0 0 0 0.25rem rgb(63 169 245 / 50%);
+  }
 }

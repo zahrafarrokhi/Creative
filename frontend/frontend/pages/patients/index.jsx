@@ -19,19 +19,17 @@ const SelectPatient = (props) => {
     router.push("/patients/new");
   };
 
-  const getPatients = async ()=>{
+  const getPatients = async () => {
     try {
-
-   await dispatch(loadPatients()).unwrap();
-      
-    } catch (error) {
-      
-    }
-  }
-  const submit = ()=>{
-    dispatch(loginAsPatient(selectedPatient))
-  }
-  useEffect (()=>{getPatients()},[])
+      await dispatch(loadPatients()).unwrap();
+    } catch (error) {}
+  };
+  const submit = () => {
+    dispatch(loginAsPatient(selectedPatient));
+  };
+  useEffect(() => {
+    getPatients();
+  }, []);
 
   return (
     <div
@@ -73,29 +71,25 @@ const SelectPatient = (props) => {
               </label>
             </div>
           ))} */}
-        {patients?.map((p,index,arr) => (
-            <div key={p.id}>
-              <input
-                type="radio"
-                className={`btn-check ${styles.btn}`}
-                name="patientselect"
-                id={`patient_select_${p.id}`}
-                autoComplete="off"
-                onChange={() => selectPatient(p.id)}
-                checked={selectedPatient === p.id}
-              />
-              <label
-                className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${
-                  styles.btn
-                } ${styles.sbtn}  ${
-                  selectedPatient === p.id ? styles["sbtn-checked"] : ""
-                }`}
-                htmlFor={`patient_select_${p.id}`}
-              >
-                {p.first_name} {p.last_name}
-              </label>
-            </div>
-          ))}
+        {patients?.map((p, index, arr) => (
+          <div key={p.id}>
+            <input
+              type="radio"
+              className={`btn-check ${styles.btn}`}
+              name="patientselect"
+              id={`patient_select_${p.id}`}
+              autoComplete="off"
+              onChange={() => selectPatient(p.id)}
+              checked={selectedPatient === p.id}
+            />
+            <label
+              className={`btn btn-outline-primary align-items-center justify-content-center m-2 ${styles.btn} ${styles.sbtn1}`}
+              htmlFor={`patient_select_${p.id}`}
+            >
+              {p.first_name} {p.last_name}
+            </label>
+          </div>
+        ))}
 
         <div className={`mt-2`}>
           <button
@@ -114,6 +108,7 @@ const SelectPatient = (props) => {
           type="submit"
           className="btn btn-primary flex-fill"
           onClick={submit}
+          // selectedPatient === null <=> disabled = true
           disabled={selectedPatient === null}
         >
           ورود
