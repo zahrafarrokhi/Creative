@@ -10,6 +10,7 @@ import { createWrapper, MakeStore, HYDRATE } from 'next-redux-wrapper';
 import { authSlice } from './slices/auth';
 import { persistStore } from 'redux-persist';
 import { patientsSlice } from './slices/patients';
+import { constantDataSlice } from './slices/constant_data';
 
 const makeStore = (initialState) => {
   let store;
@@ -23,6 +24,7 @@ const makeStore = (initialState) => {
 
     const combinedReducers = combineReducers({
       authReducer: authSlice.reducer,
+      contantdataReducer: constantDataSlice.reducer,
       patientReducer : patientsSlice.reducer,
     });
 
