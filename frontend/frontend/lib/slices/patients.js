@@ -1,40 +1,54 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import moment from 'moment-jalaali';
-import axios from '../axios';
+import axios from "../axios";
 
-export const IDLE = 'idle';
-export const LOADING = 'loading';
+export const IDLE = "idle";
+export const LOADING = "loading";
 
 export const loadPatients = createAsyncThunk(
-  'patients/getall',
+  "patients/getall",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get('/api/patients/patient/');
+      const response = await axios.get("/api/patients/patient/");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
-  },
+  }
 );
 
 export const addPatient = createAsyncThunk(
-  'patients/new',
+  "patients/new",
   async ({ nationalId, dateOfBirth }, thunkAPI) => {
     try {
-      dateOfBirth = moment(dateOfBirth, 'YYYY-MM-DD');
-      const dateOfBirthJalali = dateOfBirth.format('jYYYY-jMM-jDD');
-      dateOfBirth = dateOfBirth.format('YYYY-MM-DD');
-      const response = await axios.post('/api/patients/patient', {
+      dateOfBirth = moment(dateOfBirth, "YYYY-MM-DD");
+      const dateOfBirthJalali = dateOfBirth.format("jYYYY-jMM-jDD");
+      dateOfBirth = dateOfBirth.format("YYYY-MM-DD");
+      const response = await axios.post("/api/patients/patient", {
         national_id: nationalId,
         date_of_birth: dateOfBirth,
         date_of_birth_jalali: dateOfBirthJalali,
       });
       return response.data;
     } catch (error) {
-      console.log('Main error object: ', error, error.response.data);
+      console.log("Main error object: ", error, error.response.data);
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
-  },
+  }
+);
+export const updatePatientInfo = createAsyncThunk(
+  "patients/update",
+  async (data, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `/api/patients/patient/${data.patientId ?? data.id}`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.response.data });
+    }
+  }
 );
 
 const internalInitialState = {
@@ -45,14 +59,16 @@ const internalInitialState = {
 };
 
 export const patientsSlice = createSlice({
-  name: 'patients',
+  name: "patients",
   initialState: internalInitialState,
   reducers: {
     reset: () => internalInitialState,
     loginAsPatient: (state, action) => {
-      state.patient = state.patients.filter((patient)=>(patient.id == action.payload))[0]
-      return state
-    }
+      state.patient = state.patients.filter(
+        (patient) => patient.id == action.payload
+      )[0];
+      return state;
+    },
   },
   extraReducers: (builder) => {
     // Load patients
@@ -81,6 +97,20 @@ export const patientsSlice = createSlice({
       state.loading = LOADING;
     });
 
+    // Update Patient Info
+    builder.addCase(updatePatientInfo.rejected, (state, action) => {
+      state.error = action.payload.error;
+      state.loading = IDLE;
+    });
+    builder.addCase(updatePatientInfo.fulfilled, (state, action) => {
+      state.patient = action.payload;
+      state.patients = state.patients.filter((p) => p.id !== state.patient.id);
+      state.patients.push(state.patient);
+      state.loading = IDLE;
+    });
+    builder.addCase(updatePatientInfo.pending, (state, action) => {
+      state.loading = LOADING;
+    });
   },
 });
 
