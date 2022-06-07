@@ -16,6 +16,27 @@ export const loadPatients = createAsyncThunk(
     }
   },
 );
+
+export const addPatient = createAsyncThunk(
+  'patients/new',
+  async ({ nationalId, dateOfBirth }, thunkAPI) => {
+    try {
+      dateOfBirth = moment(dateOfBirth, 'YYYY-MM-DD');
+      const dateOfBirthJalali = dateOfBirth.format('jYYYY-jMM-jDD');
+      dateOfBirth = dateOfBirth.format('YYYY-MM-DD');
+      const response = await axios.post('/api/patients/patient', {
+        national_id: nationalId,
+        date_of_birth: dateOfBirth,
+        date_of_birth_jalali: dateOfBirthJalali,
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Main error object: ', error, error.response.data);
+      return thunkAPI.rejectWithValue({ error: error.response.data });
+    }
+  },
+);
+
 const internalInitialState = {
   patients: null,
   patient: null,
@@ -46,7 +67,19 @@ export const patientsSlice = createSlice({
     builder.addCase(loadPatients.pending, (state, action) => {
       state.loading = LOADING;
     });
-   
+    // New patient
+    builder.addCase(addPatient.rejected, (state, action) => {
+      state.error = action.payload.error;
+      state.loading = IDLE;
+    });
+    builder.addCase(addPatient.fulfilled, (state, action) => {
+      state.patient = action.payload;
+      state.patients.push(state.patient);
+      state.loading = IDLE;
+    });
+    builder.addCase(addPatient.pending, (state, action) => {
+      state.loading = LOADING;
+    });
 
   },
 });

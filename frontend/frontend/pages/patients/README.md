@@ -226,3 +226,87 @@ in this instance action.payload the function parameter in dispatch(selectedPatie
 }
 
 ```
+
+
+# new patient
+## nationalId validation
+
+```jsx
+import React, { useState, useEffect, useRef } from "react";
+
+function newPatient() {
+  // const nationalId = useRef();
+  const [nationalId, setnationalId] = useState();
+  const [nationalIdValid, setNationalIdValid] = useState(false);
+  return (
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="mt-5"
+    >
+     ...
+      <div className="d-flex flex-column p-3 align-self-center align-items-center w-100">
+        <div className="align-items-right">
+          <label className="form-label" htmlFor="nationalId">
+            کدملی
+          </label>
+          <input
+            dir="ltr"
+            id="nationalId"
+            // ref={nationalId}
+            className="form-control"
+            maxLength={10}
+            value={nationalId}
+            onChange={(e) => {
+              setnationalId(e.target.value);
+              setNationalIdValid(e.target.value.length === 10); // important
+            }}
+            inputMode="numeric"
+          />
+       
+        </div>
+      </div>
+      <div className={`d-flex flex-row p-3 align-self-center ${styles.submit_div}`}  >  
+        <button
+          type="submit"
+          className={`btn btn-primary flex-fill ${styles.btn}`}
+          disabled={nationalIdValid} /// important
+          // onClick={submit}
+        >
+          مرحله‌ی بعد
+        </button>
+      </div>
+    
+    </form>
+  );
+}
+
+export default newPatient;
+
+
+```
+## Have 2 state
+![state](./../../../screenshots/2State.png)
+
+
+## datepicker
+[datepicker](https://www.npmjs.com/package/react-persian-datepicker)
+```commandline
+npm i react-persian-datepicker
+npm uninstall react-persian-datepicker # Nextjs doesn't allow global css in components
+```
+![datepic_error](./../../../screenshots/datepickernextjsError.png)
+
+[jalali-react-datepicker](npmjs.com/package/jalali-react-datepicker)
+```
+npm i jalali-react-datepicker
+```
+
+```jsx
+import { DatePicker } from "jalali-react-datepicker";
+ <DatePicker
+            value={birthdate}
+            timePicker={false}
+            onClickSubmitButton={({ value }) => setBirthDate(value)}
+          />
+
+```
