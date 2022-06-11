@@ -80,6 +80,8 @@ source env/bin/activate  # On Windows use `env\Scripts\activate`
 
 # Install Django and Django REST framework into the virtual environment
 pip install django
+<!--stabel  -->
+pip install django==3.2
 pip install djangorestframework
 
 pip freeze > requirements.txt
@@ -110,6 +112,10 @@ python manage.py createsuperuser2 --email=admin@example.com --password=1234
 
 ## Ignoring venv folder from git
 * Create a .gitignore file in the main app directory
+* touch .gitignore
+* nano .gitignore
+* cat .gitignore
+* 
 * add `venv/` to gitignore file to ignore venv
 
 
@@ -131,6 +137,9 @@ static/*
 media/*
 
 ```
+## env
+* touch .env
+* touch .env.example
 
 ## Setting up django environment
 [Django Environ Docs](https://django-environ.readthedocs.io/en/latest/getting-started.html)
