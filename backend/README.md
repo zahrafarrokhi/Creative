@@ -287,6 +287,172 @@ docker-compose build ## build local images
 docker-compose up -d [--force-recreate] [--build] ## by default docker-compose up both pulls and builds images, but it doesnt rebuild by default, in order to rebuild use --build, --force-recreate recreates dockers that are already running
 docker-compose down [--remove-orphans] ## remove orphans removes running containers that are no longer attached to docker file
 ```
+
+## DockerFile
+
+```DockerFile
+FROM python:3.8.3-alpine
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+
+COPY . .
+
+ARG name
+
+RUN apk update \
+    && apk update && apk add postgresql-dev gcc python3-dev musl-dev \
+    && apk add --virtual build-deps \
+    && apk add jpeg-dev zlib-dev libjpeg \
+    && pip install Pillow \
+    && apk del build-deps
+
+RUN pip install --upgrade pip
+
+RUN pip install -r requirements.txt
+
+```
+With the above code, the install commands will run everytime anyfile in the project changes. In order to prevent this, we can first copy requirements.txt 
+and then after installing all requirements copy the rest of the project.
+```DockerFile
+FROM python:3.8.3-alpine
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+
+
+ARG name
+
+RUN apk update \
+    && apk update && apk add postgresql-dev gcc python3-dev musl-dev \
+    && apk add --virtual build-deps \
+    && apk add jpeg-dev zlib-dev libjpeg \
+    && pip install Pillow \
+    && apk del build-deps
+
+RUN pip install --upgrade pip
+
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+COPY . . 
+# COPY . /app == COPY . .
+```
+Now we can seperate this docker file into two docker files, one just for installing requirements, and one for setting up the project.
+```Dockerfile
+# backend-python.dockerfile
+FROM python:3.9.7
+
+WORKDIR /app
+
+RUN apt-get -y update
+RUN apt-get -y install python3.9-dev default-libmysqlclient-dev gcc -y
+
+RUN apt-get update && apt-get install --yes libgdal-dev
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+RUN apt-get -y remove gcc
+```
+Now we just copy django project files:
+```Dockerfile
+# backend.dockerfile
+FROM creative-backend-python:latest
+
+COPY . . 
+
+
+RUN chmod +x ./entrypoint_*.sh
+```
+
+
+Now we need to build these packages:
+```sh
+docker build -f backend-python.dockerfile -t creative-backend-python:latest . --no-cache
+docker build -f backend.dockerfile -t creative-backend:latest . --no-cach
+```
+
+We can use Makefile to run these commands easier(this code also uses commit id to set package tag):
+```makefile
+LAST_TAG_COMMIT := $(shell git rev-list --tags --max-count=1)
+LAST_TAG := $(shell git describe --tags $(LAST_TAG_COMMIT))
+LAST_COMMIT := $(shell git rev-parse HEAD)
+
+
+ifeq ($(LAST_COMMIT), $(LAST_TAG_COMMIT))
+	TAG := $(LAST_TAG)
+else
+	TAG := $(LAST_COMMIT)
+endif
+
+base_package:
+	docker build -f backend-python.dockerfile -t clinic-backend-python:latest . --no-cache
+
+production: 
+	docker build -f backend.dockerfile -t clinic-backend:$(TAG) -t clinic-backend:latest . --no-cache
+```
+```sh
+make base_package
+make production
+```
+
+Now we want to do some more automation. We want to automatically check if requirements.txt has changed, and only run `make base_package` if it has.
+```sh
+# build.sh
+# sampel: ./build.sh production
+#!/bin/bash
+
+stage=$1 # stage is production
+
+
+if test -f "./requirements.txt.checksum"; 
+	then
+    echo "./requirements.txt.checksum exists."
+	else
+		touch requirements.txt.checksum
+fi
+
+newreq=$(sha256sum ./requirements.txt | awk '{print $1}')
+prereq=$(cat ./requirements.txt.checksum)
+
+echo $newreq
+echo $prereq
+
+if [[ "$newreq" != "$prereq" ]];
+then
+	echo "BUILDING BASE PACKAGE"
+
+	make base_package && echo $newreq > ./requirements.txt.checksum
+fi
+
+make $stage
+```
+
+In docker-compose, instead of using long commands we can use entry_point files to run the required commands:
+```sh
+# entrypoint.sh
+#!/bin/sh
+
+echo "Starting..."
+
+echo "Migarating the database..."
+python3 manage.py migrate
+
+echo "Loading database data..."
+python3 manage.py loaddata constant_data/fixture/0001-cities.json
+
+echo "Collecting static files..."
+python3 manage.py collectstatic --noinput
+
+echo "Starting the server..."
+[ ! -z "$GUNICORN_WORKERS" ] || $GUNICORN_WORKERS=4
+gunicorn GhodadBackend.wsgi:application --timeout 120 --workers $GUNICORN_WORKERS --bind 0.0.0.0:8000
+
+```
+
+
 ## Creating a new database
 * In your desired server, right click on databases -> create -> database
 ![New database](./screenshots/pgadmin-newdatabase.png)
