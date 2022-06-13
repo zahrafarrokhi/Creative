@@ -330,6 +330,39 @@ By default, Django adds a Manager with the name [objects](https://docs.djangopro
 ## jwt and passwordless
 * [jwt](https://github.com/jazzband/djangorestframework-simplejwt)
 * [passwordless](https://github.com/aaronn/django-rest-framework-passwordless)
+
+## authentication test
+* curl
+ * Requesting OTP
+```commandline 
+curl --request POST '127.0.0.1:8000/auth/mobile/' --form 'phone_number=09122465489'
+```
+You can view the code in admin panel
+```json
+{"detail":"A login token has been texted to you."}
+```
+ * Login
+```commandline 
+curl --request POST '127.0.0.1:8000/auth/confirm/' --form 'phone_number=091*******' --form 'token=1439'
+```
+```json
+{
+ "phone_number":"091*******",
+ "token":"1439",
+ "user":{
+   "id":2,
+   "phone_number":"09122465489",
+   "email":"",
+   "phone_number_verified":true,
+   "email_verified":false,
+   "type":"patient"
+   },
+    "access_tok":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU1MTA3MzMwLCJqdGkiOiI2Y2M1NGRhZDIzYWY0MGQ4YThiYTg5MDE0YjVhNWZiZCIsInVuaXF1ZV9pZCI6Mn0.9y1zXVpzrrOkTaySrTmoFuMVaPZb8d6r9kR7MHOwAGc",
+ "refresh_tok":"71FC23343B274B41AE382370082F63C6",
+ "refresh_tok_exp":"2022-08-12T07:57:10.804413Z",
+ "access_tok_exp":"2022-06-13T08:02:10.804302Z"
+}
+```
 ## fixtures
 * [iran-cities](https://github.com/ahmadazizi/iran-cities)
 * You can find this example in `constant_data/fixtures/city_data_convertor`
