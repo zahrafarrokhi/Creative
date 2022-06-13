@@ -327,7 +327,9 @@ class User(AbstractUser):
 ### Managers
 By default, Django adds a Manager with the name [objects](https://docs.djangoproject.com/en/4.0/topics/db/managers/#manager-names-1) to every Django model class. 
 * [Tutorial](https://docs.djangoproject.com/en/4.0/topics/db/managers/)
-
+## jwt and passwordless
+* [jwt](https://github.com/jazzband/djangorestframework-simplejwt)
+* [passwordless](https://github.com/aaronn/django-rest-framework-passwordless)
 ## fixtures
 * [iran-cities](https://github.com/ahmadazizi/iran-cities)
 * You can find this example in `constant_data/fixtures/city_data_convertor`
