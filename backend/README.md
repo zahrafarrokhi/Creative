@@ -237,7 +237,7 @@ sudo apt install pgadmin4
 * Right click on servers -> register -> server
 * Fill out the following fields
     * name: any name you like
-    * hostname
+    * hostname => localhost,127.0.0.1
     * port
     * username: default postgres user is `postgres`
     * password: default postgres password is `postgres`
@@ -251,7 +251,42 @@ sudo apt install pgadmin4
 ```
 pip install psycopg2
 ```
+## postgres with docker
+[postgres](https://hub.docker.com/_/postgres)
+* create docker services repository
+* create docker-compose.yml
+```yml
+version: '3.9'
 
+services:
+
+  postgres_db:
+    image: postgres
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 666:5432
+    environment:
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
+
+volumes:
+  postgres_data:
+  
+```
+* create .env and .env.example
+```
+.env
+PG_PASSWORD=1234
+
+```
+* Running dockers
+```sh
+docker-compose pull ## Get image from remote server
+docker-compose build ## build local images
+docker-compose up -d [--force-recreate] [--build] ## by default docker-compose up both pulls and builds images, but it doesnt rebuild by default, in order to rebuild use --build, --force-recreate recreates dockers that are already running
+docker-compose down [--remove-orphans] ## remove orphans removes running containers that are no longer attached to docker file
+```
 ## Creating a new database
 * In your desired server, right click on databases -> create -> database
 ![New database](./screenshots/pgadmin-newdatabase.png)
