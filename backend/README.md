@@ -69,7 +69,7 @@ git push --force origin main
 
 [REST Toturial](https://www.django-rest-framework.org/tutorial/quickstart/)
 
-```commandline
+```python
 # Create the project directory
 mkdir creative
 cd creative
