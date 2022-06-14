@@ -49,10 +49,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #  'django_extensions',
+    'rest_framework',
+    'rest_framework_gis',
+    'django_filters',
+    'jwt',
+    'django_celery_beat',
+    # apps
     'constant_data',
     'base_classes',
     'authentication',
     'patients',
+ 
+    
 ]
 
 MIDDLEWARE = [
