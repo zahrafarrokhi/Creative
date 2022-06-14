@@ -4,7 +4,7 @@
 ## Basic Git commands
 
 [Basic Git commands](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html)
-```commandline
+```python
 # view commit history tree
 git log --graph
 ```
@@ -26,11 +26,11 @@ git checkout <branchname>
 
 ### Reset to a specific commit
 
-```commandline
+```python
 git log --graph # find commit hash you want to reset to
 ```
 
-```commandline
+```python
 * commit 6c944544375f61a19c8920aa2d3a7cb4eef10ed4 (HEAD -> main, origin/main, origin/HEAD)
 | Author: zahrafarrokhi <zahrafarrokhi2017@gmail.com>
 | Date:   Mon May 30 16:10:19 2022 +0430
@@ -51,7 +51,7 @@ git log --graph # find commit hash you want to reset to
 | 
 ```
 
-```commandline
+```python
  git reset --hard 3324fe8a120ab98434beb66ad9bd5cdb22849815
  git reset --soft 3324fe8a120ab98434beb66ad9bd5cdb22849815 # keeps files
   ```
@@ -60,7 +60,7 @@ If you have already pushed to git, you need to use force.
 Because git is a few commits ahead of you and thinks that you just haven't pulled yet
 so it asks you to `git pull` first.
 
-```commandline
+```python
 # use force to push
 git push --force origin main
 ```
@@ -177,7 +177,7 @@ media/*
 
 ## Setting up django environment
 [Django Environ Docs](https://django-environ.readthedocs.io/en/latest/getting-started.html)
-```commandline
+```python
 python -m pip install django-environ
 ```
 
@@ -202,12 +202,12 @@ environ.Env.read_env()
 ```
 
 In .env
-```commandline
+```python
 SECRET_KEY=
 ```
 ## Installing jazzmin
 [install jazmin](https://pypi.org/project/django-jazzmin/)
-```commandline
+```python
 pip install django-jazzmin
 ```
 * add to install app settings
@@ -223,33 +223,33 @@ INSTALLED_APPS = [
 ```
 
 ## Installing requests
-```commandline
+```python
 pip install requests
 ```
 
 ## Installing PyJWT
-```commandline
+```python
 pip install PyJWT
 ```
 
 # install postgresql
 [postgresql](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 
-```commandline
+```python
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 sudo systemctl start postgresql.service
 sudo -i -u postgres # Login as postgres user
 psql # Login to postgres with postgres user
 ```
-```commandline
+```python
 postgres# \q # to exit postgres
 ```
 Because we ran `sudo -i -u postgres ` we are still logged in as postgres. To logout simply run `exit` in terminal
 
 ## Setup pgAdmin
 [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-apt/)
-```commandline
+```python
 #
 # Setup the repository
 #
