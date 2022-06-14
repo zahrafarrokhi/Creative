@@ -83,9 +83,43 @@ pip install django
 <!--stabel  -->
 pip install django==3.2
 pip install djangorestframework
+pip install djangorestframework-gis
+pip install django-filter
+pip install -U django-celery-beat
 
 pip freeze > requirements.txt
 
+INSTALLED_APPS = [
+    'jazzmin',
+    'django.contrib.admin',
+    #  'GhodadBackend.apps.CustomAdminConfig',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.gis',
+    #  'django_extensions',
+    'rest_framework',
+    'rest_framework_gis',
+    'django_filters',
+    'jwt',
+    'django_celery_beat',
+    # apps
+    'constant_data',
+    'authentication',
+    'base_classes',
+    'payments',
+    'patients',
+    'visits',
+    'doctors',
+    'chat',
+    'support',
+    'pharmacy',
+    'laboratories',
+    'notifications',
+    'assistants',
+]
 # Set up a new project with a single application
 django-admin startproject backend .  # Note the trailing '.' character
 
@@ -164,6 +198,7 @@ env = environ.Env(
 In settings.py
 ```python
 SECRET_KEY = env('SECRET_KEY')
+environ.Env.read_env()
 ```
 
 In .env
@@ -179,6 +214,7 @@ pip install django-jazzmin
 [jazzmin](https://django-jazzmin.readthedocs.io/installation/)
 ```python
 INSTALLED_APPS = [
+    #first line
     'jazzmin',
 
     'django.contrib.admin',
