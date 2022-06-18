@@ -316,6 +316,38 @@ volumes:
 PG_PASSWORD=1234
 
 ```
+```sh
+docker-compose up
+<!--pg admin  -->
+Fill out the following fields
+name: any name you like
+hostname => localhost,127.0.0.1
+port => 666
+username:  postgres
+password: 1234
+<!-- create new database  -->
+ivisit
+<!-- django setings-->
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
+    }
+}
+<!-- .env  -->
+DATABASE_NAME=ivisit
+DATABASE_USER=postgres
+DATABASE_PASSWORD=1234
+DATABASE_HOST=localhost
+DATABASE_PORT=666
+```
+
+
+
 * Running dockers
 ```sh
 docker-compose pull ## Get image from remote server
