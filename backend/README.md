@@ -344,6 +344,10 @@ DATABASE_USER=postgres
 DATABASE_PASSWORD=1234
 DATABASE_HOST=localhost
 DATABASE_PORT=666
+
+<!-- run -->
+python manage.py migrate
+python manage.py runserver
 ```
 
 
