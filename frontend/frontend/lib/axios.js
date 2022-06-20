@@ -1,4 +1,5 @@
 import axios from 'axios';
+// when accessToken expires, use refreshToken to get new accessToken
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 // Create axios instance.
