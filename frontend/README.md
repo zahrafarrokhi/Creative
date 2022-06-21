@@ -1,6 +1,6 @@
 # Starting Project
 ## Preview
-![flex](https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/)
+[flex](https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/)
 ```jsx
 .child {
   flex: [flex-grow] [flex-shrink] [flex-basis];
