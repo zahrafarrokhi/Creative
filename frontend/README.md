@@ -1,6 +1,18 @@
 # Starting Project
-## Setting up
+## Preview
+![flex](https://css-tricks.com/understanding-flex-grow-flex-shrink-and-flex-basis/)
+```jsx
+.child {
+  flex: [flex-grow] [flex-shrink] [flex-basis];
+}
 
+/* or... */
+
+.child {
+  flex: [max] [min] [ideal size];
+}
+```
+## Setting up
 ```
 npx create-next-app frontend
 ```
